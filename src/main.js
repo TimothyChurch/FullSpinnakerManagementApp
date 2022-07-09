@@ -1,12 +1,13 @@
+// Styles
 import "primeflex/primeflex.css";
 import "primevue/resources/primevue.min.css";
 import "primeicons/primeicons.css";
 import "../node_modules/prismjs/themes/prism-coy.css";
 import "./assets/styles/demo/flag.css";
-
-import { createApp } from "vue";
+// Main app import
+import * as Vue from "vue";
 import App from "./App.vue";
-
+// PrimeVue imports
 import PrimeVue from "primevue/config";
 import Accordion from "primevue/accordion";
 import AccordionTab from "primevue/accordiontab";
@@ -17,13 +18,17 @@ import Badge from "primevue/badge";
 import Button from "primevue/button";
 import Calendar from "primevue/calendar";
 import Carousel from "primevue/carousel";
+import Chart from "primevue/chart";
+import Column from "primevue/column";
 import Checkbox from "primevue/checkbox";
 import Chip from "primevue/chip";
+import DataTable from "primevue/datatable";
 import Dialog from "primevue/dialog";
 import Divider from "primevue/divider";
 import Dropdown from "primevue/dropdown";
 import FileUpload from "primevue/fileupload";
 import Galleria from "primevue/galleria";
+import Image from "primevue/image";
 import InlineMessage from "primevue/inlinemessage";
 import InputMask from "primevue/inputmask";
 import InputNumber from "primevue/inputnumber";
@@ -50,14 +55,21 @@ import ToggleButton from "primevue/togglebutton";
 import Tooltip from "primevue/tooltip";
 import Toast from "primevue/toast";
 import ToastService from "primevue/toastservice";
-
+// Module imports
 import "./registerServiceWorker";
 import router from "./router";
+import { createPinia } from "pinia";
+import axios from "axios";
+import VueAxios from "vue-axios";
 
-createApp(App)
+const app = Vue.createApp(App);
+app
+  .use(createPinia())
   .use(router)
+  .use(VueAxios, axios)
   .use(PrimeVue)
   .use(ToastService)
+  .provide("axios", app.config.globalProperties.axios)
   .component("Accordion", Accordion)
   .component("AccordionTab", AccordionTab)
   .component("Avatar", Avatar)
@@ -66,13 +78,17 @@ createApp(App)
   .component("Button", Button)
   .component("Calendar", Calendar)
   .component("Carousel", Carousel)
+  .component("Chart", Chart)
+  .component("Column", Column)
   .component("Checkbox", Checkbox)
   .component("Chip", Chip)
+  .component("DataTable", DataTable)
   .component("Dialog", Dialog)
   .component("Divider", Divider)
   .component("Dropdown", Dropdown)
   .component("FileUpload", FileUpload)
   .component("Galleria", Galleria)
+  .component("Image", Image)
   .component("InlineMessage", InlineMessage)
   .component("InputMask", InputMask)
   .component("InputNumber", InputNumber)
