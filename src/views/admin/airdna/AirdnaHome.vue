@@ -1,7 +1,7 @@
 <script setup>
 import { useAirdnaStore } from "@/store/AirdnaStore";
 const AIRDNA_STORE = useAirdnaStore();
-AIRDNA_STORE.getRentalizerReports();
+await AIRDNA_STORE.getRentalizerReports();
 </script>
 
 <template>

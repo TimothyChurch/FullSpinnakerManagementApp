@@ -11,7 +11,7 @@ export const useAirdnaStore = defineStore("AirdnaStore", {
     async getRentalizerReports() {
       if (this.rentalizer.length == 0) {
         let temp = [];
-        rentalizerTable.select({}).eachPage((records, fetchNextPage) => {
+        await rentalizerTable.select({}).eachPage((records, fetchNextPage) => {
           records.forEach((record) => {
             temp.push(record);
           });
@@ -20,9 +20,12 @@ export const useAirdnaStore = defineStore("AirdnaStore", {
         this.rentalizer = temp;
       }
     },
+    async getRentalizerReport(id) {
+      const report = this.rentalizer.find((report) => report.id === id);
+      return report;
+    },
     saveRentalizer(data) {
-      const stats = JSON.stringify(data.property_stats);
-      const comps = JSON.stringify(data.comps);
+      const dataStr = JSON.stringify(data);
       rentalizerTable.create([
         {
           fields: {
@@ -32,8 +35,7 @@ export const useAirdnaStore = defineStore("AirdnaStore", {
             Accommodates: data.property_details.accommodates,
             Lat: data.property_details.location.lat,
             Lng: data.property_details.location.lng,
-            Stats: stats,
-            Comps: comps,
+            JSON: dataStr,
           },
         },
       ]);

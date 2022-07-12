@@ -13,7 +13,7 @@ export const usePropertyStore = defineStore("PropertyStore", {
     async getProperties() {
       if (this.properties.length == 0) {
         let temp = [];
-        propertiesTable.select({}).eachPage((records, fetchNextPage) => {
+        await propertiesTable.select({}).eachPage((records, fetchNextPage) => {
           records.forEach((record) => {
             temp.push(record);
           });

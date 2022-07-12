@@ -10,10 +10,10 @@ export const usePeopleStore = defineStore("PeopleStore", {
   }),
   getters: {},
   actions: {
-    getPeople() {
+    async getPeople() {
       if (this.people.length == 0) {
         let temp = [];
-        peopleTable.select({}).eachPage((records, fetchNextPage) => {
+        await peopleTable.select({}).eachPage((records, fetchNextPage) => {
           records.forEach((record) => {
             temp.push(record);
           });

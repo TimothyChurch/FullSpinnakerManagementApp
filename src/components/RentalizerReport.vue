@@ -1,9 +1,10 @@
 <script setup>
 import { defineProps } from "vue";
+import { useRoute } from "vue-router";
 import Chart from "./RentalizerChart.vue";
 import Comps from "./RentalizerComps.vue";
 import { useAirdnaStore } from "@/store/AirdnaStore";
-
+const route = useRoute();
 const props = defineProps({ data: Object });
 
 const AIRDNA_STORE = useAirdnaStore();
@@ -77,7 +78,11 @@ const RentalizerComps = Comps;
       </div>
     </div>
     <!-- Revenue Chart -->
-    <Button @click="saveRentalizer(props.data)" label="Save" />
+    <Button
+      v-if="route.name !== 'Property Report'"
+      @click="saveRentalizer(props.data)"
+      label="Save"
+    />
     <RentalizerChart :data="props.data.property_stats" />
     <RentalizerComps :data="props.data.comps" />
   </div>

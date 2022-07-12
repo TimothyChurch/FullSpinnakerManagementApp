@@ -1,5 +1,15 @@
-<script setup></script>
+<script setup>
+import PeopleTable from "@/components/PeopleTable";
+</script>
 
 <template>
-  <div>This is the people page</div>
+  <Suspense>
+    <template #default>
+      <PeopleTable />
+    </template>
+    <template #fallback>
+      Loading...
+      <!-- TODO Add skeleton table -->
+    </template>
+  </Suspense>
 </template>

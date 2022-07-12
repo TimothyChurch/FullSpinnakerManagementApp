@@ -25,8 +25,11 @@ const tabs = ref([
 </script>
 
 <template>
-  <div>
-    <TabMenu :model="tabs" />
-    <router-view />
-  </div>
+  <TabMenu :model="tabs" />
+  <Suspense>
+    <template #default>
+      <router-view />
+    </template>
+    <template #fallback> Loading... </template>
+  </Suspense>
 </template>

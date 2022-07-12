@@ -2,8 +2,7 @@
 import { ref, reactive } from "vue";
 import { rentalizer } from "@/composables/useAirdna";
 import RentalizerReport from "@/components/RentalizerReport";
-import data from "@/fake_data/paul.json"; // TODO Remove to reconnect api
-const rentalizerData = data; // TODO Remove to reconnect api
+
 const address = ref("");
 const bedrooms = ref(0);
 const bathrooms = ref(0);
@@ -33,9 +32,8 @@ const submit = async () => {
       <InputNumber id="accomodates" v-model="accomodates" />
       <Button label="Submit" @click="submit()" />
     </div>
-    <div>
-      <RentalizerReport :data="rentalizerData" />
-      <!-- TODO change rentalzerData to res.data -->
+    <div v-if="res.data != null">
+      <RentalizerReport :data="res.data" />
     </div>
   </div>
 </template>
