@@ -1,6 +1,7 @@
 <script setup>
-import { defineProps } from "vue";
+import { ref, defineProps } from "vue";
 import { useToast } from "primevue/usetoast";
+import { RentalizerChart } from "@/components/RentalizerChart";
 const props = defineProps({ data: Object });
 const toast = useToast();
 const showSticky = () => {
@@ -11,19 +12,27 @@ const showSticky = () => {
     life: 3000,
   });
 };
+const display = ref(false);
+const selectedProperty = ref({});
+const displayDialog = (data) => {
+  selectedProperty.value = data.stats;
+  display.value = true;
+};
 </script>
 
 <template>
   <Toast />
   <div class="surface-ground">
-    {{ props.data[0] }}
-    <div class="grid">
+    {{ props.data[0].stats }}
+    <div class="grid justify-content-center">
       <div
         v-for="comp in props.data"
         :key="comp.airbnb_property_id"
-        class="col-12 md:col-6 xl:col-3 p-3"
+        class="col-12 md:col-6 lg:col-4 xl:col-3 justify-around"
       >
-        <div class="surface-card shadow-2 border-rounded p-4">
+        <div
+          class="surface-card shadow-2 border-rounded p-4 h-full flex-column justify-content-between"
+        >
           <div
             class="flex flex-column align-items-center border-bottom-1 surface-border pb-3"
           >
@@ -36,7 +45,74 @@ const showSticky = () => {
             <span class="text-lg text-900 font-medium mb-2">
               {{ comp.title }}
             </span>
-            <span class="text-600 font-medium mb-3">Duis Aute Irure</span>
+            <div class="surface-ground col-10 p-0 border-1 surface-border">
+              <div
+                class="surface-card border-bottom-1 surface-border flex flex-column md:flex-row"
+              >
+                <div
+                  class="border-bottom-1 md:border-right-1 md:border-bottom-none surface-border justify-content-center flex-auto px-3"
+                >
+                  <div class="mb-2">
+                    <div class="text-500 font-medium text-center">Revenue</div>
+                  </div>
+                  <div class="text-center text-900 font-medium mb-2 text-xl">
+                    ${{ comp.stats.revenue.ltm.toLocaleString() }}
+                  </div>
+                </div>
+                <div
+                  class="border-bottom-1 md:border-bottom-none surface-border justify-content-center flex-auto px-3"
+                >
+                  <div class="mb-2">
+                    <div class="text-500 font-medium text-center">
+                      Potential
+                    </div>
+                  </div>
+                  <div class="text-900 font-medium mb-2 text-xl text-center">
+                    ${{ comp.stats.revenue_potential.ltm.toLocaleString() }}
+                  </div>
+                </div>
+              </div>
+              <div class="surface-card border-round flex flex-column">
+                <div
+                  class="surface-card flex flex-row flex-wrap justify-content-center col-12 p-0"
+                >
+                  <div
+                    class="border-bottom-1 md:border-right-1 md:border-bottom-none surface-border justify-content-center col-12 lg:col-4 md:col-6 p-0 pt-2"
+                  >
+                    <div class="mb-2">
+                      <div class="text-500 font-medium text-center">
+                        Days Available
+                      </div>
+                    </div>
+                    <div class="text-center text-900 font-medium mb-2 text-xl">
+                      {{ comp.stats.days_available.ltm }}
+                    </div>
+                  </div>
+                  <div
+                    class="border-bottom-1 md:border-right-1 md:border-bottom-none surface-border justify-content-center col-12 lg:col-4 md:col-6 p-0 pt-2"
+                  >
+                    <div class="mb-2">
+                      <div class="text-500 font-medium text-center">ADR</div>
+                    </div>
+                    <div class="text-900 font-medium mb-2 text-xl text-center">
+                      ${{ comp.stats.adr.ltm.toLocaleString() }}
+                    </div>
+                  </div>
+                  <div
+                    class="border-bottom-1 md:border-bottom-none surface-border justify-content-center col-12 lg:col-4 md:col-6 p-0 pt-2"
+                  >
+                    <div class="mb-2">
+                      <div class="text-500 font-medium text-center">
+                        Occupancy
+                      </div>
+                    </div>
+                    <div class="text-900 font-medium mb-2 text-xl text-center">
+                      {{ comp.stats.occupancy.ltm * 100 }}%
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             {{ comp.rating / 2 }}
             <Rating
               :modelValue="comp.rating / 2"
@@ -111,16 +187,23 @@ const showSticky = () => {
             </div>
           </div>
           <div class="flex flex-column pt-3 align-items-center">
-            <Button
-              icon="pi pi-chart-bar"
-              label="Performance"
-              class="p-button-text"
-              @click="showSticky"
-            ></Button>
+            <div class="align-items-center">
+              <Button
+                icon="pi pi-chart-bar"
+                label="Performance"
+                class="p-button-text"
+                @click="displayDialog(comp)"
+              ></Button>
+            </div>
             <!-- TODO Add performance pop up -->
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <Dialog v-model:visible="display">
+    {{ selectedProperty }}
+    <RentalizerChart :data="props.data[0].stats" />
+  </Dialog>
 </template>
