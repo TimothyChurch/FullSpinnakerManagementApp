@@ -18,8 +18,16 @@ const RentalizerComps = Comps;
 
 <template>
   <div>
+    <div class="flex align-items-center justify-content-center">
+      <div class="align-items-center">
+        <span class="text-700 font-medium mb-3">Rentalizer Report</span>
+        <div class="text-900 font-medium text-3xl">
+          {{ props.data.property_details.address }}
+        </div>
+      </div>
+    </div>
     <!-- Data cards -->
-    <div class="surface-ground px-4 py-5 md:px-6 lg:px-8">
+    <div class="surface-ground px-4 py-3 md:px-6 lg:px-8">
       <div class="grid">
         <div class="col-12 md:col-12 lg:col-4">
           <div class="surface-card shadow-2 p-3 border-round">

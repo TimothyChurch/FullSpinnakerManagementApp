@@ -51,6 +51,7 @@ const sideNav = [
                 v-ripple
                 class="flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center text-600 border-left-2 border-transparent hover:border-300 transition-duration-150 transition-colors p-ripple no-underline"
                 :to="link.route"
+                active-class="text-cyan-600 border-cyan-600"
                 exact-active-class="text-cyan-600 border-cyan-600"
               >
                 <i :class="link.icon"></i>
