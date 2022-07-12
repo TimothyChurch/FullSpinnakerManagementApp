@@ -1,7 +1,6 @@
 <script setup>
-import { ref, defineProps } from "vue";
+import { defineProps } from "vue";
 import { useToast } from "primevue/usetoast";
-import { RentalizerChart } from "@/components/RentalizerChart";
 const props = defineProps({ data: Object });
 const toast = useToast();
 const showSticky = () => {
@@ -12,18 +11,11 @@ const showSticky = () => {
     life: 3000,
   });
 };
-const display = ref(false);
-const selectedProperty = ref({});
-const displayDialog = (data) => {
-  selectedProperty.value = data.stats;
-  display.value = true;
-};
 </script>
 
 <template>
   <Toast />
   <div class="surface-ground">
-    {{ props.data[0].stats }}
     <div class="grid justify-content-center">
       <div
         v-for="comp in props.data"
@@ -33,9 +25,7 @@ const displayDialog = (data) => {
         <div
           class="surface-card shadow-2 border-rounded p-4 h-full flex-column justify-content-between"
         >
-          <div
-            class="flex flex-column align-items-center border-bottom-1 surface-border pb-3"
-          >
+          <div class="flex flex-column align-items-center surface-border pb-3">
             <img
               v-bind:src="comp.cover_img"
               class="mb-3 bg-cover"
@@ -186,24 +176,8 @@ const displayDialog = (data) => {
               </Button>
             </div>
           </div>
-          <div class="flex flex-column pt-3 align-items-center">
-            <div class="align-items-center">
-              <Button
-                icon="pi pi-chart-bar"
-                label="Performance"
-                class="p-button-text"
-                @click="displayDialog(comp)"
-              ></Button>
-            </div>
-            <!-- TODO Add performance pop up -->
-          </div>
         </div>
       </div>
     </div>
   </div>
-
-  <Dialog v-model:visible="display">
-    {{ selectedProperty }}
-    <RentalizerChart :data="props.data[0].stats" />
-  </Dialog>
 </template>
