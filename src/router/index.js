@@ -17,9 +17,6 @@ import GuestLayout from "../views/guest/GuestLayout.vue";
 import PropertyReport from "../views/guest/reports/property/[id].vue";
 // Guest Routes
 import GuestBook from "../views/guest/property/[id].vue";
-import PropertyInfo from "../views/guest/property/PropertyInfo.vue";
-import PropertyMap from "../views/guest/property/PropertyMap.vue";
-import PropertySearch from "../views/guest/property/PropertySearch.vue";
 
 const routes = [
   {
@@ -71,23 +68,6 @@ const routes = [
         path: "/property/:id",
         name: "Guest Book",
         component: GuestBook,
-        children: [
-          {
-            path: "/property/:id/info",
-            name: "Property Info",
-            component: PropertyInfo,
-          },
-          {
-            path: "/property/:id/map",
-            name: "Property Map",
-            component: PropertyMap,
-          },
-          {
-            path: "/property/:id/search",
-            name: "Property Search",
-            component: PropertySearch,
-          },
-        ],
       },
     ],
   },

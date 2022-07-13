@@ -1,31 +1,11 @@
 <script setup>
-import { useRoute } from "vue-router";
-const route = useRoute();
-const tabs = [
-  {
-    label: "Home",
-    icon: "pi pi-fw pi-home",
-    to: `/property/${route.params.id}`,
-  },
-  {
-    label: "Info",
-    icon: "pi pi-fw pi-info-circle",
-    to: `/property/${route.params.id}/info`,
-  },
-  {
-    label: "Map",
-    icon: "pi pi-fw pi-map",
-    to: `/property/${route.params.id}/map`,
-  },
-  {
-    label: "Search",
-    icon: "pi pi-fw pi-search",
-    to: `/property/${route.params.id}/search`,
-  },
-];
+import PropertyInfo from "@/components/guest/property/PropertyInfo.vue";
+import PropertyHeader from "@/components/guest/property/PropertyHeader.vue";
 </script>
 
 <template>
-  <TabMenu :model="tabs" />
-  <router-view />
+  <div class="h-screen flex flex-column">
+    <PropertyHeader :model="tabs" class="flex flex-none w-full" />
+    <PropertyInfo class="flex flex-grow-1 overflow-hidden" />
+  </div>
 </template>
