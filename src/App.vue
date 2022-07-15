@@ -1,4 +1,7 @@
-<script setup></script>
+<script setup>
+import * as Realm from "realm-web";
+new Realm.App("managementapp-ugznc");
+</script>
 
 <template>
   <router-view />
