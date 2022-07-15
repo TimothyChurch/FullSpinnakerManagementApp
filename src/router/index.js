@@ -1,10 +1,14 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import * as Realm from "realm-web";
+import Home from "../views/Home.vue";
 // Admin Routes
 import AdminLayout from "../views/admin/AdminLayout.vue";
 import AdminHome from "../views/admin/AdminHome.vue";
 import AdminProperties from "../views/admin/properties/Properties.vue";
 import AdminProperty from "../views/admin/properties/[id].vue";
 import AdminPeople from "../views/admin/people/People.vue";
+// Owner Routes
+import OwnerLayout from "../views/owner/OwnerLayout.vue";
 // AirDNA Routes
 import Airdna from "../views/admin/airdna/Airdna.vue";
 import AirdnaHome from "../views/admin/airdna/AirdnaHome.vue";
@@ -17,15 +21,24 @@ import GuestLayout from "../views/guest/GuestLayout.vue";
 import PropertyReport from "../views/guest/reports/property/[id].vue";
 // Guest Routes
 import GuestBook from "../views/guest/property/[id].vue";
-import PropertyInfo from "../views/guest/property/PropertyInfo.vue";
-import PropertyMap from "../views/guest/property/PropertyMap.vue";
-import PropertySearch from "../views/guest/property/PropertySearch.vue";
+
+const app = Realm.getApp("managementapp-ugznc");
 
 const routes = [
+  {
+    path: "/",
+    name: "Home",
+    component: Home,
+  },
   {
     path: "/admin",
     name: "Admin",
     component: AdminLayout,
+    beforeEnter: () => {
+      if (app.currentUser.customData.role !== "admin") {
+        return false;
+      }
+    },
     children: [
       { path: "", name: "AdminHome", component: AdminHome },
       {
@@ -58,6 +71,11 @@ const routes = [
     ],
   },
   {
+    path: "/owner",
+    name: "Owner",
+    component: OwnerLayout,
+  },
+  {
     path: "/guest",
     name: "Guest",
     component: GuestLayout,
@@ -71,23 +89,6 @@ const routes = [
         path: "/property/:id",
         name: "Guest Book",
         component: GuestBook,
-        children: [
-          {
-            path: "/property/:id/info",
-            name: "Property Info",
-            component: PropertyInfo,
-          },
-          {
-            path: "/property/:id/map",
-            name: "Property Map",
-            component: PropertyMap,
-          },
-          {
-            path: "/property/:id/search",
-            name: "Property Search",
-            component: PropertySearch,
-          },
-        ],
       },
     ],
   },
@@ -97,5 +98,15 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
-
+router.beforeEach((to, from, next) => {
+  if (
+    to.name == "Guest" ||
+    to.name == "Property Report" ||
+    to.name == "Guest Book"
+  )
+    next();
+  else if (to.name !== "Home" && app.currentUser == null)
+    next({ name: "Home" });
+  else next();
+});
 export default router;

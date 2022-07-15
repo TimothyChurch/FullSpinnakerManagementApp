@@ -1,7 +1,18 @@
 <script setup>
+import { useRouter } from "vue-router";
+import * as Realm from "realm-web";
 import { usePeopleStore } from "@/store/PeopleStore";
+const router = useRouter();
+const app = Realm.getApp("managementapp-ugznc");
 const PEOPLE_STORE = usePeopleStore();
 PEOPLE_STORE.getPeople();
+const logout = async () => {
+  await app.currentUser.logOut();
+  router.push("/");
+};
+const showUser = async () => {
+  console.log(app.currentUser);
+};
 const sideNav = [
   {
     label: "Home",
@@ -164,6 +175,12 @@ const sideNav = [
                 >
               </div>
             </a>
+          </li>
+          <li>
+            <Button @click="showUser"> User </Button>
+          </li>
+          <li>
+            <Button @click="logout"> Logout </Button>
           </li>
         </ul>
       </div>
