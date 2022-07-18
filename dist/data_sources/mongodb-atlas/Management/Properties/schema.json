@@ -1,1 +1,32 @@
-{}
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "address": {
+            "bsonType": "string"
+        },
+        "hot": {
+            "bsonType": "string"
+        },
+        "lat": {
+            "bsonType": "string"
+        },
+        "lng": {
+            "bsonType": "string"
+        },
+        "name": {
+            "bsonType": "string"
+        },
+        "photo": {
+            "bsonType": "string"
+        },
+        "pms": {
+            "bsonType": "string"
+        },
+        "status": {
+            "bsonType": "string"
+        }
+    },
+    "title": "Property"
+}
