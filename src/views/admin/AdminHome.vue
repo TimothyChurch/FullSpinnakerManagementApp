@@ -1,5 +1,15 @@
-<script setup></script>
+<script setup>
+import PropertyEdit from "@/components/forms/PropertyEdit";
+</script>
 
 <template>
-  <div>This is the Admin Home Page blah blah blah</div>
+  <Suspense>
+    <template #default>
+      <PropertyEdit />
+    </template>
+    <template #fallback>
+      Loading...
+      <!-- TODO Add skeleton table -->
+    </template>
+  </Suspense>
 </template>

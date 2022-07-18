@@ -18,6 +18,7 @@ import Badge from "primevue/badge";
 import Button from "primevue/button";
 import Calendar from "primevue/calendar";
 import Carousel from "primevue/carousel";
+import Card from "primevue/card";
 import Chart from "primevue/chart";
 import Column from "primevue/column";
 import Checkbox from "primevue/checkbox";
@@ -30,6 +31,7 @@ import FileUpload from "primevue/fileupload";
 import Galleria from "primevue/galleria";
 import Image from "primevue/image";
 import InlineMessage from "primevue/inlinemessage";
+import Inplace from "primevue/inplace";
 import InputMask from "primevue/inputmask";
 import InputNumber from "primevue/inputnumber";
 import InputSwitch from "primevue/inputswitch";
@@ -77,6 +79,7 @@ app
   .component("Badge", Badge)
   .component("Button", Button)
   .component("Calendar", Calendar)
+  .component("Card", Card)
   .component("Carousel", Carousel)
   .component("Chart", Chart)
   .component("Column", Column)
@@ -90,6 +93,7 @@ app
   .component("Galleria", Galleria)
   .component("Image", Image)
   .component("InlineMessage", InlineMessage)
+  .component("Inplace", Inplace)
   .component("InputMask", InputMask)
   .component("InputNumber", InputNumber)
   .component("InputSwitch", InputSwitch)

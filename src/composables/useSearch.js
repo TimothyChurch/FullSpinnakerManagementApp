@@ -30,7 +30,9 @@ export async function useSearch(query) {
         $limit: 5,
       },
     ]);
-    return { properties, people };
+    let issues = []; // TODO Get data from mongodb
+    let questions = [];
+    return { properties, people, issues, questions };
   } else {
     return [];
   }

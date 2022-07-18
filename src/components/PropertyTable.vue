@@ -2,10 +2,12 @@
 import { ref } from "vue";
 import { FilterMatchMode, FilterOperator } from "primevue/api";
 import { usePropertyStore } from "@/store/PropertyStore";
+import { toggleVisible } from "@/composables/useDialog";
+
 const PROPERTY_STORE = usePropertyStore();
 await PROPERTY_STORE.getProperties();
-
 const properties = ref(PROPERTY_STORE.properties);
+
 const filters1 = ref({
   global: { value: null, matchMode: FilterMatchMode.CONTAINS },
   name: {
@@ -13,6 +15,16 @@ const filters1 = ref({
     constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
   },
 });
+const editLink = async (_id) => {
+  PROPERTY_STORE.property = await PROPERTY_STORE.properties.filter(
+    (property) => {
+      if (property._id.toString() == _id.toString()) {
+        return true;
+      }
+    }
+  );
+  toggleVisible();
+};
 </script>
 
 <template>
@@ -39,5 +51,14 @@ const filters1 = ref({
     <Column field="Address" header="Address" />
     <Column field="Owner" header="Owner" />
     <Column field="Cleaners" header="Cleaner" />
+    <Column>
+      <template #body="slotProps">
+        <Button
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-success"
+          @click="editLink(slotProps.data._id)"
+        />
+      </template>
+    </Column>
   </DataTable>
 </template>

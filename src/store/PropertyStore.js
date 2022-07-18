@@ -1,8 +1,8 @@
+import { ObjectId } from "bson";
 import { defineStore } from "pinia";
 import * as Realm from "realm-web";
 const app = Realm.getApp("managementapp-ugznc");
 const mongo = app.currentUser.mongoClient("mongodb-atlas");
-
 export const usePropertyStore = defineStore("PropertyStore", {
   state: () => ({
     properties: [],
@@ -20,8 +20,13 @@ export const usePropertyStore = defineStore("PropertyStore", {
         this.properties = data;
       }
     },
-    getProperty() {
-      return;
+    async getProperty(id) {
+      console.log(id);
+      const propId = new ObjectId(id);
+      this.property = await mongo
+        .db("Management")
+        .collection("Properties")
+        .findOne({ _id: propId });
     },
     getPropertyName(id) {
       let name = "";

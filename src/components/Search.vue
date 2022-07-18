@@ -21,25 +21,34 @@ const exit = () => {
     @update:visible="exit"
     contentClass="flex flex-column"
   >
-    <div class="flex flex-column justify-content-center">
-      <div class="p-input-icon-left mb-4">
-        <i class="pi pi-search" />
-        <InputText
-          type="text"
-          v-model="query"
-          @input="runSearch()"
-          placeholder="Search"
-          class="w-full"
-          autofocus
-        />
+    <template #header>
+      <div class="flex flex-column justify-content-center w-full">
+        <div class="p-input-icon-left mr-4">
+          <i class="pi pi-search" />
+          <InputText
+            type="text"
+            v-model="query"
+            @input="runSearch()"
+            placeholder="Search"
+            class="w-full"
+            autofocus
+          />
+        </div>
       </div>
+    </template>
+    <div class="flex flex-column justify-content-center">
       <div
-        v-if="results.properties || results.people"
+        v-if="
+          results.properties ||
+          results.people ||
+          results.issues ||
+          results.questions
+        "
         class="flex flex-row justify-content-around"
       >
         <div
           v-if="results.properties.length > 0"
-          class="flex flex-column p-4 flex-grow"
+          class="flex flex-column p-3 col-3"
         >
           <div class="text-3xl font medium text-900 mb-3 align-self-center">
             Properties
@@ -49,19 +58,54 @@ const exit = () => {
             :key="result._id"
             class="flex surface-card shadow-2 p-1 m-1"
           >
-            <img :src="`${result.Photo}`" />
-            {{ result.Name }}
+            <router-link
+              :to="{ name: 'Property', params: { id: result._id.toString() } }"
+              @click="exit(property)"
+            >
+              <Avatar :image="`${result.Photo}`" size="xlarge" shape="circle" />
+              {{ result.Name }}
+            </router-link>
           </div>
         </div>
         <div
           v-if="results.people.length > 0"
-          class="flex flex-column p-4 flex-grow"
+          class="flex flex-column p-3 col-3"
         >
           <div class="text-3xl font medium text-900 mb-3 align-self-center">
             People
           </div>
           <div
             v-for="result in results.people"
+            :key="result._id"
+            class="flex surface-card shadow-2 p-1 m-1"
+          >
+            {{ result.Name }}
+          </div>
+        </div>
+        <div
+          v-if="results.issues.length > 0"
+          class="flex flex-column p-3 col-3"
+        >
+          <div class="text-3xl font medium text-900 mb-3 align-self-center">
+            Issues
+          </div>
+          <div
+            v-for="result in results.issues"
+            :key="result._id"
+            class="flex surface-card shadow-2 p-1 m-1"
+          >
+            {{ result.Name }}
+          </div>
+        </div>
+        <div
+          v-if="results.questions.length > 0"
+          class="flex flex-column p-3 col-3"
+        >
+          <div class="text-3xl font medium text-900 mb-3 align-self-center">
+            Questions
+          </div>
+          <div
+            v-for="result in results.questions"
             :key="result._id"
             class="flex surface-card shadow-2 p-1 m-1"
           >

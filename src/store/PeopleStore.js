@@ -8,7 +8,34 @@ export const usePeopleStore = defineStore("PeopleStore", {
     people: [],
     person: {},
   }),
-  getters: {},
+  getters: {
+    async getOwners() {
+      if (this.people.length == 0) {
+        await this.refreshPeople();
+      }
+      const owners = this.people.filter((person) => {
+        if (person.Role == "Owner") return true;
+      });
+      owners.map((owner) => {
+        owner._id = owner._id.toString();
+        return owner;
+      });
+      return owners;
+    },
+    async getCleaners() {
+      if (this.people.length == 0) {
+        await this.refreshPeople();
+      }
+      const cleaners = this.people.filter((person) => {
+        if (person.Role == "Cleaner") return true;
+      });
+      cleaners.map((cleaner) => {
+        cleaner._id = cleaner._id.toString();
+        return cleaner;
+      });
+      return cleaners;
+    },
+  },
   actions: {
     async getPeople() {
       if (this.people.length == 0) {
@@ -32,8 +59,8 @@ export const usePeopleStore = defineStore("PeopleStore", {
       let name = null;
       if (id != null) {
         this.people.forEach((person) => {
-          if (person.id == id) {
-            name = person.fields.Name;
+          if (person._id.toString() == id) {
+            name = person.Name;
           }
         });
       }
