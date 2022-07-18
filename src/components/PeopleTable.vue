@@ -29,7 +29,8 @@ const filters1 = ref({
     :paginator="true"
     :rows="10"
     v-model:filters="filters1"
-    :globalFilterFields="['fields.Name', 'fields.Address']"
+    :globalFilterFields="['Name', 'Address']"
+    class="p-datatable-sm"
   >
     <template #header>
       <div class="flex justify-content-between">
@@ -42,14 +43,19 @@ const filters1 = ref({
         </span>
       </div>
     </template>
-    <Column field="fields.Name" header="Name" />
-    <Column field="fields.Role" header="Role" />
-    <Column field="fields.Phone" header="Phone Number" />
-    <Column field="fields.Email" header="Email" />
-    <Column field="fields.Properties" header="Properties">
-      // eslint-disable-next-line vue/no-unused-vars
+    <Column field="Name" header="Name" class="min-w-32" />
+    <Column field="Role" header="Role" class="min-w-full" />
+    <Column field="Phone" header="Phone Number" class="min-w-full" />
+    <Column field="Email" header="Email" class="min-w-full" />
+    <Column field="Properties" header="Properties">
       <template #body="slotProps">
-        {{ slotProps.data.fields.Properties }}
+        <div>
+          <div v-for="property in slotProps.data.Properties" :key="property">
+            <a class="h-4 p-1 truncate max-w-6">
+              {{ PROPERTY_STORE.getPropertyName(property) }}
+            </a>
+          </div>
+        </div>
       </template>
     </Column>
   </DataTable>

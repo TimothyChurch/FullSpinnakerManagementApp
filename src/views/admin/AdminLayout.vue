@@ -1,18 +1,31 @@
 <script setup>
+import { watch } from "vue";
+import { useMagicKeys } from "@vueuse/core";
 import { useRouter } from "vue-router";
 import * as Realm from "realm-web";
-import { usePeopleStore } from "@/store/PeopleStore";
-const router = useRouter();
+import { toggleVisible } from "@/composables/useSearch";
+import Search from "@/components/Search";
+
+// Hot keys for search model
+const keys = useMagicKeys();
+const ctrlSpace = keys["Ctrl+Space"];
+watch(ctrlSpace, (v) => {
+  if (v) {
+    toggleVisible();
+  }
+});
+// User Functions
 const app = Realm.getApp("managementapp-ugznc");
-const PEOPLE_STORE = usePeopleStore();
-PEOPLE_STORE.getPeople();
+const router = useRouter();
 const logout = async () => {
   await app.currentUser.logOut();
   router.push("/");
 };
 const showUser = async () => {
+  app.currentUser.refreshCustomData();
   console.log(app.currentUser);
 };
+// Side Navigation
 const sideNav = [
   {
     label: "Home",
@@ -46,14 +59,10 @@ const sideNav = [
     >
       <div class="flex flex-column h-full">
         <div
-          class="flex align-items-center justify-content-center flex-shrink-0"
+          class="flex align-items-center justify-content-center flex-shrink-0 pt-1"
           style="height: 60px"
         >
-          <img
-            src="images/blocks/logos/hyper-cyan.svg"
-            alt="Image"
-            height="30"
-          />
+          <img src="logo.png" alt="Logo" height="50" />
         </div>
         <div class="mt-3">
           <ul class="list-none p-0 m-0">
@@ -81,7 +90,7 @@ const sideNav = [
             class="m-3 flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center hover:surface-200 border-round text-600 transition-duration-150 transition-colors p-ripple"
           >
             <img
-              src="images/blocks/avatars/circle/avatar-f-1.png"
+              :src="app.currentUser.customData.photo"
               class="mr-2 lg:mr-0"
               style="width: 32px; height: 32px"
             />
@@ -110,14 +119,6 @@ const sideNav = [
           >
             <i class="pi pi-bars text-4xl"></i>
           </a>
-          <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <InputText
-              type="text"
-              class="border-none w-10rem sm:w-20rem"
-              placeholder="Search"
-            />
-          </span>
         </div>
         <a
           v-ripple
@@ -164,7 +165,8 @@ const sideNav = [
               class="flex p-3 lg:px-3 lg:py-2 align-items-center hover:surface-100 font-medium border-round cursor-pointer transition-duration-150 transition-colors p-ripple"
             >
               <img
-                src="images/blocks/avatars/circle/avatar-f-1.png"
+                v-if="app.currentUser !== null"
+                :src="app.currentUser.customData.photo"
                 class="mr-3 lg:mr-0"
                 style="width: 32px; height: 32px"
               />
@@ -187,5 +189,6 @@ const sideNav = [
       <!-- Main Content -->
       <router-view />
     </div>
+    <Search />
   </div>
 </template>

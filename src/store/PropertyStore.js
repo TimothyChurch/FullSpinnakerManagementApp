@@ -1,7 +1,8 @@
 import { defineStore } from "pinia";
-import { useAirtable } from "@/composables/useAirtable";
-const propertiesTable = useAirtable("Properties");
-const detailsTable = useAirtable("Properties Details");
+import * as Realm from "realm-web";
+const app = Realm.getApp("managementapp-ugznc");
+const mongo = app.currentUser.mongoClient("mongodb-atlas");
+
 export const usePropertyStore = defineStore("PropertyStore", {
   state: () => ({
     properties: [],
@@ -12,28 +13,27 @@ export const usePropertyStore = defineStore("PropertyStore", {
   actions: {
     async getProperties() {
       if (this.properties.length == 0) {
-        let temp = [];
-        await propertiesTable.select({}).eachPage((records, fetchNextPage) => {
-          records.forEach((record) => {
-            temp.push(record);
-          });
-          fetchNextPage();
-        });
-        this.properties = temp;
+        const data = await mongo
+          .db("Management")
+          .collection("Properties")
+          .find();
+        this.properties = data;
       }
     },
-    getProperty(propertyId) {
-      propertiesTable.find(propertyId, function (err, record) {
-        if (err) throw err;
-        this.property = record;
-      });
+    getProperty() {
       return;
     },
-    getDetails(detailsId) {
-      detailsTable.find(detailsId, function (err, record) {
-        if (err) throw err;
-        this.details = record;
+    getPropertyName(id) {
+      let name = "";
+      this.properties.forEach((property) => {
+        if (property._id.toString() === id.toString()) {
+          name = property.Name;
+        }
       });
+      return name;
+    },
+    getDetails() {
+      return;
     },
   },
 });

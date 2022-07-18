@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import { useAirtable } from "@/composables/useAirtable";
-
-const peopleTable = useAirtable("People");
+import * as Realm from "realm-web";
+const app = Realm.getApp("managementapp-ugznc");
+const mongo = app.currentUser.mongoClient("mongodb-atlas");
 
 export const usePeopleStore = defineStore("PeopleStore", {
   state: () => ({
@@ -12,15 +12,12 @@ export const usePeopleStore = defineStore("PeopleStore", {
   actions: {
     async getPeople() {
       if (this.people.length == 0) {
-        let temp = [];
-        await peopleTable.select({}).eachPage((records, fetchNextPage) => {
-          records.forEach((record) => {
-            temp.push(record);
-          });
-          fetchNextPage();
-        });
-        this.people = temp;
+        await this.refreshPeople();
       }
+    },
+    async refreshPeople() {
+      const data = await mongo.db("Management").collection("People").find();
+      this.people = data;
     },
     setPerson(id) {
       console.log(id);

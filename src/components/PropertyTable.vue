@@ -35,9 +35,9 @@ const filters1 = ref({
         </span>
       </div>
     </template>
-    <Column field="fields.Name" header="Name" />
-    <Column field="fields.Address" header="Address" />
-    <Column field="fields.Owner" header="Owner" />
-    <Column field="fields.Cleaners" header="Cleaner" />
+    <Column field="Name" header="Name" />
+    <Column field="Address" header="Address" />
+    <Column field="Owner" header="Owner" />
+    <Column field="Cleaners" header="Cleaner" />
   </DataTable>
 </template>
