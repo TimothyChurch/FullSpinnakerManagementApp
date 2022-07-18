@@ -1,0 +1,23 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "first_name": {
+            "bsonType": "string"
+        },
+        "last_name": {
+            "bsonType": "string"
+        },
+        "photo": {
+            "bsonType": "string"
+        },
+        "role": {
+            "bsonType": "string"
+        },
+        "userId": {
+            "bsonType": "string"
+        }
+    },
+    "title": "User"
+}
