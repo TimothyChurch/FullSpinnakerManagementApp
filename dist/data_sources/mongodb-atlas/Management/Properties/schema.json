@@ -6,6 +6,15 @@
         "address": {
             "bsonType": "string"
         },
+        "city": {
+            "bsonType": "string"
+        },
+        "cleaner": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "objectId"
+            }
+        },
         "hot": {
             "bsonType": "string"
         },
@@ -18,13 +27,28 @@
         "name": {
             "bsonType": "string"
         },
+        "owner": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "objectId"
+            }
+        },
         "photo": {
             "bsonType": "string"
         },
         "pms": {
             "bsonType": "string"
         },
+        "state": {
+            "bsonType": "string"
+        },
         "status": {
+            "bsonType": "string"
+        },
+        "street": {
+            "bsonType": "string"
+        },
+        "zip": {
             "bsonType": "string"
         }
     },
