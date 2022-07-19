@@ -1,11 +1,9 @@
-<script setup>
-import PropertyEdit from "@/components/forms/PropertyEdit";
-</script>
+<script setup></script>
 
 <template>
   <Suspense>
     <template #default>
-      <PropertyEdit />
+      <div>blah blah blah</div>
     </template>
     <template #fallback>
       Loading...

@@ -11,7 +11,7 @@ export async function useSearch(query) {
     let properties = await management.collection("Properties").aggregate([
       {
         $search: {
-          autocomplete: { query, path: "Name" },
+          autocomplete: { query, path: "name" },
           index: "property",
         },
       },

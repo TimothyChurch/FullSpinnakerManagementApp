@@ -3,10 +3,26 @@ import { defineStore } from "pinia";
 import * as Realm from "realm-web";
 const app = Realm.getApp("managementapp-ugznc");
 const mongo = app.currentUser.mongoClient("mongodb-atlas");
+const propertyCollection = mongo.db("Management").collection("Properties");
+
 export const usePropertyStore = defineStore("PropertyStore", {
   state: () => ({
     properties: [],
-    property: {},
+    property: {
+      name: null,
+      status: null,
+      pms: null,
+      photo: null,
+      address: null,
+      lat: null,
+      lng: null,
+      hot: null,
+      owner: [],
+      cleaner: [],
+      issues: [],
+      questions: [],
+      bookings: [],
+    },
     details: {},
   }),
   getters: {},
@@ -38,6 +54,46 @@ export const usePropertyStore = defineStore("PropertyStore", {
       return name;
     },
     getDetails() {
+      return;
+    },
+    async upsertOne() {
+      if (!this.property._id) {
+        this.property._id = new ObjectId();
+      }
+      if (this.property) {
+        this.property.owner = this.property.owner.map((owner) => {
+          return new ObjectId(owner);
+        });
+        console.log(this.property.owner.length > 0);
+      }
+      if (this.property.cleaner.length > 0) {
+        this.property.cleaner = this.property.cleaner.map((cleaner) => {
+          return ObjectId(cleaner);
+        });
+      }
+      const result = await propertyCollection.updateOne(
+        { _id: this.property._id },
+        { $set: this.property },
+        { upsert: true }
+      );
+      return result;
+    },
+    resetProperty() {
+      this.property = {
+        name: null,
+        status: null,
+        pms: null,
+        photo: null,
+        address: null,
+        lat: null,
+        lng: null,
+        hot: null,
+        owner: [],
+        cleaner: [],
+        issues: [],
+        questions: [],
+        bookings: [],
+      };
       return;
     },
   },

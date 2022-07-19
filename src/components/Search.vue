@@ -62,8 +62,8 @@ const exit = () => {
               :to="{ name: 'Property', params: { id: result._id.toString() } }"
               @click="exit(property)"
             >
-              <Avatar :image="`${result.Photo}`" size="xlarge" shape="circle" />
-              {{ result.Name }}
+              <Avatar :image="`${result.photo}`" size="xlarge" shape="circle" />
+              {{ result.name }}
             </router-link>
           </div>
         </div>

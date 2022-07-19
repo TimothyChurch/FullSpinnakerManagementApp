@@ -3,9 +3,13 @@ import * as Realm from "realm-web";
 import Home from "../views/Home.vue";
 // Admin Routes
 import AdminLayout from "../views/admin/AdminLayout.vue";
-import AdminHome from "../views/admin/AdminHome.vue";
-import AdminProperties from "../views/admin/properties/Properties.vue";
+import AdminHome from "../views/admin/index.vue";
+// Admin Properties Routes
+import AdminPropertiesLayout from "../views/admin/properties/PropertiesLayout.vue";
+import AdminPropertiesTable from "../views/admin/properties/PropertiesTable.vue";
 import AdminProperty from "../views/admin/properties/[id].vue";
+import AdminAddProperty from "../components/admin/forms/EditProperty.vue";
+// Admin People Routes
 import AdminPeople from "../views/admin/people/People.vue";
 // Owner Routes
 import OwnerLayout from "../views/owner/OwnerLayout.vue";
@@ -43,13 +47,25 @@ const routes = [
       { path: "", name: "AdminHome", component: AdminHome },
       {
         path: "properties",
-        name: "Properties",
-        component: AdminProperties,
-      },
-      {
-        path: "properties/:id",
-        name: "Property",
-        component: AdminProperty,
+        name: "PropertiesLayout",
+        component: AdminPropertiesLayout,
+        children: [
+          {
+            path: "",
+            name: "Properties Table",
+            component: AdminPropertiesTable,
+          },
+          {
+            path: ":id",
+            name: "Property",
+            component: AdminProperty,
+          },
+          {
+            path: "new",
+            name: "Add Property",
+            component: AdminAddProperty,
+          },
+        ],
       },
       { path: "people", name: "People", component: AdminPeople },
       {

@@ -21,6 +21,7 @@ import Carousel from "primevue/carousel";
 import Card from "primevue/card";
 import Chart from "primevue/chart";
 import Column from "primevue/column";
+import ContextMenu from "primevue/contextmenu";
 import Checkbox from "primevue/checkbox";
 import Chip from "primevue/chip";
 import DataTable from "primevue/datatable";
@@ -85,6 +86,7 @@ app
   .component("Column", Column)
   .component("Checkbox", Checkbox)
   .component("Chip", Chip)
+  .component("ContextMenu", ContextMenu)
   .component("DataTable", DataTable)
   .component("Dialog", Dialog)
   .component("Divider", Divider)
