@@ -71,7 +71,9 @@ const exit = ({ result, page }) => {
                   shape="circle"
                 />
               </div>
-              <div class="text-center align-self-center w-full overflow-hidden">
+              <div
+                class="text-center align-self-center w-full overflow-hidden select-none"
+              >
                 {{ result.name }}
               </div>
             </div>
@@ -96,7 +98,9 @@ const exit = ({ result, page }) => {
               <div class="flex min-w-64px pr-3">
                 <i class="pi pi-fw pi-user" style="font-size: 64px" />
               </div>
-              <div class="text-center align-self-center w-full overflow-hidden">
+              <div
+                class="text-center align-self-center w-full overflow-hidden select-none"
+              >
                 {{ result.name }}
               </div>
             </div>

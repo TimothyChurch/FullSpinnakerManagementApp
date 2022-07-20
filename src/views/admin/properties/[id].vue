@@ -18,7 +18,7 @@ watch(route, () => {
 
 <template>
   <div class="flex flex-column-reverse lg:flex-row justify-content-between">
-    <Card class="flex m-4 mr-0">
+    <Card class="flex flex-grow-1 m-4 mr-0">
       <template #title>
         <div class="p-input-icon-left w-full">
           <i class="pi pi-search" />
