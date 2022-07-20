@@ -1,14 +1,16 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { visible, toggleVisible, useSearch } from "@/composables/useSearch";
+const router = useRouter();
 const query = ref("");
 const results = ref({});
 const runSearch = async () => {
   const data = await useSearch(query.value);
-  console.log(data);
   results.value = data;
 };
-const exit = () => {
+const exit = ({ result, page }) => {
+  router.push({ name: page, params: { id: result._id.toString() } });
   query.value = "";
   results.value = {};
   toggleVisible();
@@ -19,7 +21,7 @@ const exit = () => {
   <Dialog
     :visible="visible"
     @update:visible="exit"
-    contentClass="flex flex-column"
+    contentClass="flex flex-column w-4/5"
   >
     <template #header>
       <div class="flex flex-column justify-content-center w-full">
@@ -56,15 +58,23 @@ const exit = () => {
           <div
             v-for="result in results.properties"
             :key="result._id"
-            class="flex surface-card shadow-2 p-1 m-1"
+            class="flex surface-card shadow-3 p-3 m-1"
           >
-            <router-link
-              :to="{ name: 'Property', params: { id: result._id.toString() } }"
-              @click="exit(property)"
+            <div
+              class="flex flex-row w-full"
+              @click="exit({ result, page: 'Property' })"
             >
-              <Avatar :image="`${result.photo}`" size="xlarge" shape="circle" />
-              {{ result.name }}
-            </router-link>
+              <div class="flex min-w-64px pr-3">
+                <Avatar
+                  :image="`${result.photo}`"
+                  size="xlarge"
+                  shape="circle"
+                />
+              </div>
+              <div class="text-center align-self-center w-full overflow-hidden">
+                {{ result.name }}
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -77,9 +87,19 @@ const exit = () => {
           <div
             v-for="result in results.people"
             :key="result._id"
-            class="flex surface-card shadow-2 p-1 m-1"
+            class="flex surface-card shadow-3 p-3 m-1"
           >
-            {{ result.name }}
+            <div
+              class="flex flex-row w-full"
+              @click="exit({ result, page: 'Person' })"
+            >
+              <div class="flex min-w-64px pr-3">
+                <i class="pi pi-fw pi-user" style="font-size: 64px" />
+              </div>
+              <div class="text-center align-self-center w-full overflow-hidden">
+                {{ result.name }}
+              </div>
+            </div>
           </div>
         </div>
         <div

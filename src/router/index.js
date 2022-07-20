@@ -10,7 +10,9 @@ import AdminPropertiesTable from "../views/admin/properties/PropertiesTable.vue"
 import AdminProperty from "../views/admin/properties/[id].vue";
 import AdminAddProperty from "../components/admin/forms/EditProperty.vue";
 // Admin People Routes
-import AdminPeople from "../views/admin/people/People.vue";
+import AdminPeopleLayout from "../views/admin/people/PeopleLayout.vue";
+import AdminPeopleTable from "../views/admin/people/PeopleTable.vue";
+import AdminPerson from "../views/admin/people/[id].vue";
 // Owner Routes
 import OwnerLayout from "../views/owner/OwnerLayout.vue";
 // AirDNA Routes
@@ -67,7 +69,20 @@ const routes = [
           },
         ],
       },
-      { path: "people", name: "People", component: AdminPeople },
+      {
+        path: "people",
+        name: "PeopleLayout",
+        component: AdminPeopleLayout,
+        children: [
+          { path: "", name: "People Table", component: AdminPeopleTable },
+          {
+            path: ":id",
+            name: "Person",
+            component: AdminPerson,
+          },
+        ],
+      },
+
       {
         path: "airdna",
         name: "airdna",

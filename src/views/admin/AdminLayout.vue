@@ -39,7 +39,7 @@ const sideNav = [
   },
   {
     label: "People",
-    icon: "pi pi-user mr-2 lg:mr-0 mb-0 lg:mb-2 text-base lg:text-2xl",
+    icon: "pi pi-users mr-2 lg:mr-0 mb-0 lg:mb-2 text-base lg:text-2xl",
     route: "/admin/people",
   },
   {
