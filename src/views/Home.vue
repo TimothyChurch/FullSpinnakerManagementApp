@@ -19,6 +19,7 @@ const login = async () => {
 
 <template>
   <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+    {{ app.currentUser }}
     <div class="text-center mb-5">
       <img
         src="images/blocks/logos/hyper.svg"

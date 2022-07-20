@@ -2,8 +2,6 @@ import { ObjectId } from "bson";
 import { defineStore } from "pinia";
 import * as Realm from "realm-web";
 const app = Realm.getApp("managementapp-ugznc");
-const mongo = app.currentUser.mongoClient("mongodb-atlas");
-const propertyCollection = mongo.db("Management").collection("Properties");
 
 export const usePropertyStore = defineStore("PropertyStore", {
   state: () => ({
@@ -28,6 +26,7 @@ export const usePropertyStore = defineStore("PropertyStore", {
   getters: {},
   actions: {
     async getProperties() {
+      const mongo = app.currentUser.mongoClient("mongodb-atlas");
       if (this.properties.length == 0) {
         const data = await mongo
           .db("Management")
@@ -37,6 +36,7 @@ export const usePropertyStore = defineStore("PropertyStore", {
       }
     },
     async getProperty(id) {
+      const mongo = app.currentUser.mongoClient("mongodb-atlas");
       const propId = new ObjectId(id);
       this.property = await mongo
         .db("Management")
@@ -56,6 +56,7 @@ export const usePropertyStore = defineStore("PropertyStore", {
       return;
     },
     async upsertOne() {
+      const mongo = app.currentUser.mongoClient("mongodb-atlas");
       if (!this.property._id) {
         this.property._id = new ObjectId();
       }
@@ -70,11 +71,14 @@ export const usePropertyStore = defineStore("PropertyStore", {
           return ObjectId(cleaner);
         });
       }
-      const result = await propertyCollection.updateOne(
-        { _id: this.property._id },
-        { $set: this.property },
-        { upsert: true }
-      );
+      const result = await mongo
+        .db("Management")
+        .collection("Properties")
+        .updateOne(
+          { _id: this.property._id },
+          { $set: this.property },
+          { upsert: true }
+        );
       return result;
     },
     resetProperty() {
