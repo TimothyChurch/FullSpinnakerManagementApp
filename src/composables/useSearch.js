@@ -1,14 +1,11 @@
-import * as Realm from "realm-web";
 import { useToggle } from "@vueuse/core";
 import { ref } from "vue";
 
-const app = Realm.getApp("managementapp-ugznc");
-const mongo = app.currentUser.mongoClient("mongodb-atlas");
-const management = mongo.db("Management");
+import { peopleCollection, propertyCollection } from "@/composables/useMongodb";
 
 export async function useSearch(query) {
   if (query) {
-    let properties = await management.collection("Properties").aggregate([
+    let properties = await propertyCollection.aggregate([
       {
         $search: {
           autocomplete: { query, path: "name" },
@@ -19,10 +16,10 @@ export async function useSearch(query) {
         $limit: 5,
       },
     ]);
-    let people = await management.collection("People").aggregate([
+    let people = await peopleCollection.aggregate([
       {
         $search: {
-          autocomplete: { query, path: "Name" },
+          autocomplete: { query, path: "name" },
           index: "people",
         },
       },

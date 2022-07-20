@@ -79,7 +79,7 @@ const exit = () => {
             :key="result._id"
             class="flex surface-card shadow-2 p-1 m-1"
           >
-            {{ result.Name }}
+            {{ result.name }}
           </div>
         </div>
         <div

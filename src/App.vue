@@ -4,8 +4,11 @@ import AdminDialogs from "@/components/admin/Dialogs";
 import * as Realm from "realm-web";
 const app = new Realm.App("managementapp-ugznc");
 const loginAnonymous = async () => {
-  const credentials = Realm.Credentials.anonymous();
-  await app.logIn(credentials);
+  console.log(app.currentUser);
+  if (app.currentUser == undefined) {
+    const credentials = Realm.Credentials.anonymous();
+    await app.logIn(credentials);
+  }
 };
 loginAnonymous();
 </script>

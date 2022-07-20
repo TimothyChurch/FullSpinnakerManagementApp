@@ -1,9 +1,11 @@
 import * as Realm from "realm-web";
 const app = Realm.getApp("managementapp-ugznc");
+const mongo = app.currentUser.mongoClient("mongodb-atlas");
 
-export async function useMongodb() {
-  const mongo = app.currentUser.mongoClient("mongodb-atlas");
-  const data = await mongo.db("Management").collection("Properties").find();
-  console.log(data);
-  return data;
-}
+export const propertyCollection = mongo
+  .db("Management")
+  .collection("Properties");
+
+export const peopleCollection = mongo.db("Management").collection("People");
+
+export const usersCollection = mongo.db("Management").collection("Users");
