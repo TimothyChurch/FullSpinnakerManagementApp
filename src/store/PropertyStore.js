@@ -17,11 +17,11 @@ export const usePropertyStore = defineStore("PropertyStore", {
       lat: null,
       lng: null,
       hot: null,
-      owner: [],
-      cleaner: [],
-      issues: [],
-      questions: [],
-      bookings: [],
+      owner: [null],
+      cleaner: [null],
+      issues: [null],
+      questions: [null],
+      bookings: [null],
     },
     details: {},
   }),
@@ -37,7 +37,6 @@ export const usePropertyStore = defineStore("PropertyStore", {
       }
     },
     async getProperty(id) {
-      console.log(id);
       const propId = new ObjectId(id);
       this.property = await mongo
         .db("Management")

@@ -1,10 +1,18 @@
 <script setup>
+import { useRouter } from "vue-router";
 import { usePeopleStore } from "@/store/PeopleStore";
 import { usePropertyStore } from "@/store/PropertyStore";
+import { toggleEditProperty } from "@/composables/useDialog";
+const router = useRouter();
 const PEOPLE_STORE = usePeopleStore();
 const PROPERTY_STORE = usePropertyStore();
-const owners = await PEOPLE_STORE.getOwners;
-const cleaners = await PEOPLE_STORE.getCleaners;
+PEOPLE_STORE.getOwners();
+PEOPLE_STORE.getCleaners();
+const handleClick = () => {
+  PROPERTY_STORE.upsertOne();
+  router.push(`/admin/properties/${PROPERTY_STORE.property._id.toString()}`);
+  toggleEditProperty;
+};
 </script>
 
 <template>
@@ -83,10 +91,9 @@ const cleaners = await PEOPLE_STORE.getCleaners;
         <label for="owner" class="font-medium text-900">Owner</label>
         <MultiSelect
           v-model="PROPERTY_STORE.property.owner"
-          :options="owners"
+          :options="PEOPLE_STORE.owners"
           :filter="true"
-          optionLabel="Name"
-          optionValue="_id"
+          optionLabel="name"
           display="chip"
         />
       </div>
@@ -94,10 +101,9 @@ const cleaners = await PEOPLE_STORE.getCleaners;
         <label for="cleaner" class="font-medium text-900">Cleaner</label>
         <MultiSelect
           v-model="PROPERTY_STORE.property.cleaner"
-          :options="cleaners"
+          :options="PEOPLE_STORE.cleaners"
           :filter="true"
-          optionLabel="Name"
-          optionValue="_id"
+          optionLabel="name"
           display="chip"
         />
       </div>
@@ -107,7 +113,7 @@ const cleaners = await PEOPLE_STORE.getCleaners;
         <Button
           label="Save Changes"
           class="w-auto mt-3"
-          @click="PROPERTY_STORE.upsertOne()"
+          @click="handleClick()"
         ></Button>
       </div>
     </div>
