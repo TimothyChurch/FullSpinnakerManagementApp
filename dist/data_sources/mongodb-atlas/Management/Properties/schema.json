@@ -12,7 +12,7 @@
         "cleaner": {
             "bsonType": "array",
             "items": {
-                "bsonType": "objectId"
+                "bsonType": "object"
             }
         },
         "hot": {
@@ -30,7 +30,7 @@
         "owner": {
             "bsonType": "array",
             "items": {
-                "bsonType": "objectId"
+                "bsonType": "object"
             }
         },
         "photo": {
