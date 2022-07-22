@@ -33,18 +33,8 @@ const sideNav = [
     route: "/admin",
   },
   {
-    label: "Properties",
-    icon: "pi pi-building mr-2 lg:mr-0 mb-0 lg:mb-2 text-base lg:text-2xl",
-    route: "/admin/properties",
-  },
-  {
-    label: "People",
-    icon: "pi pi-users mr-2 lg:mr-0 mb-0 lg:mb-2 text-base lg:text-2xl",
-    route: "/admin/people",
-  },
-  {
     label: "AirDNA",
-    icon: "pi pi-building mr-2 lg:mr-0 mb-0 lg:mb-2 text-base lg:text-2xl",
+    icon: "pi pi-chart-bar mr-2 lg:mr-0 mb-0 lg:mb-2 text-base lg:text-2xl",
     route: "/admin/airdna",
   },
 ];

@@ -6,18 +6,17 @@ import { toggleEditProperty } from "@/composables/useDialog";
 const router = useRouter();
 const PEOPLE_STORE = usePeopleStore();
 const PROPERTY_STORE = usePropertyStore();
-PEOPLE_STORE.getOwners();
+PEOPLE_STORE.getOwnersNames();
 PEOPLE_STORE.getCleaners();
 const handleClick = () => {
   PROPERTY_STORE.upsertOne();
   router.push(`/admin/properties/${PROPERTY_STORE.property._id.toString()}`);
-  toggleEditProperty;
+  toggleEditProperty();
 };
 </script>
 
 <template>
   <div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
-    {{ PROPERTY_STORE.property }}
     <div class="grid formgrid p-fluid">
       <div class="field mb-4 col-12">
         <label for="name" class="font-medium text-900">Name</label>

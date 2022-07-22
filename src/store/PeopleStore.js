@@ -1,6 +1,5 @@
 import { ObjectId } from "bson";
 import { defineStore } from "pinia";
-import { usePropertyStore } from "./PropertyStore";
 import { peopleCollection } from "@/composables/useMongodb";
 
 export const usePeopleStore = defineStore("PeopleStore", {
@@ -18,12 +17,18 @@ export const usePeopleStore = defineStore("PeopleStore", {
         await this.refreshPeople();
       }
     },
-    async getOwners() {
-      const owners = await peopleCollection.find({ role: "Owner" }); // TODO Use project to just pull in _id and name for forms
+    async getOwnersNames() {
+      const owners = await peopleCollection.aggregate([
+        { $match: { role: "Owner" } },
+        { $project: { name: 1 } },
+      ]);
       this.owners = owners;
     },
     async getCleaners() {
-      const cleaners = await peopleCollection.find({ role: "Cleaner" });
+      const cleaners = await peopleCollection.aggregate([
+        { $match: { role: "Cleaner" } },
+        { $project: { name: 1 } },
+      ]);
       this.cleaners = cleaners;
     },
     async refreshPeople() {
@@ -35,26 +40,7 @@ export const usePeopleStore = defineStore("PeopleStore", {
         id = new ObjectId(id);
       }
       const data = await peopleCollection.findOne({ _id: id });
-      return data;
-    },
-    async getLinked() {
-      const PROPERTY_STORE = usePropertyStore();
-      if (PROPERTY_STORE.property.owner) {
-        PROPERTY_STORE.property.owner = await Promise.all(
-          PROPERTY_STORE.property.owner.map(async (owner) => {
-            const data = await peopleCollection.findOne({ _id: owner });
-            return data;
-          })
-        );
-      }
-      if (PROPERTY_STORE.property.cleaner) {
-        PROPERTY_STORE.property.cleaner = await Promise.all(
-          PROPERTY_STORE.property.cleaner.map(async (cleaner) => {
-            const data = await peopleCollection.findOne({ _id: cleaner });
-            return data;
-          })
-        );
-      }
+      this.person = data;
     },
     setPerson(id) {
       console.log(id);

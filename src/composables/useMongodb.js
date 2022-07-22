@@ -9,3 +9,7 @@ export const propertyCollection = mongo
 export const peopleCollection = mongo.db("Management").collection("People");
 
 export const usersCollection = mongo.db("Management").collection("Users");
+
+export const questionsCollection = mongo
+  .db("Management")
+  .collection("Questions");

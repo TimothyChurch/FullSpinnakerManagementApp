@@ -34,7 +34,7 @@ const editLink = async (_id) => {
     :paginator="true"
     :rows="10"
     v-model:filters="filters1"
-    :globalFilterFields="['fields.Name', 'fields.Address']"
+    :globalFilterFields="['name', 'address']"
   >
     <template #header>
       <div class="flex justify-content-between">
@@ -47,10 +47,10 @@ const editLink = async (_id) => {
         </span>
       </div>
     </template>
-    <Column field="Name" header="Name" />
-    <Column field="Address" header="Address" />
-    <Column field="Owner" header="Owner" />
-    <Column field="Cleaners" header="Cleaner" />
+    <Column field="name" header="Name" />
+    <Column field="address" header="Address" />
+    <Column field="owner.name" header="Owner" />
+    <Column field="cleaner.name" header="Cleaner" />
     <Column>
       <template #body="slotProps">
         <Button

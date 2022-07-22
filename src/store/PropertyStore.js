@@ -1,47 +1,29 @@
 import { ObjectId } from "bson";
 import { defineStore } from "pinia";
-import * as Realm from "realm-web";
-const app = Realm.getApp("managementapp-ugznc");
+import { propertyCollection, peopleCollection } from "@/composables/useMongodb";
 
 export const usePropertyStore = defineStore("PropertyStore", {
   state: () => ({
     properties: [],
-    property: {
-      name: null,
-      status: null,
-      pms: null,
-      photo: null,
-      address: null,
-      lat: null,
-      lng: null,
-      hot: null,
-      owner: [null],
-      cleaner: [null],
-      issues: [null],
-      questions: [null],
-      bookings: [null],
-    },
-    details: {},
+    selectedProperties: [],
+    property: {},
+    question: {},
   }),
   getters: {},
   actions: {
     async getProperties() {
-      const mongo = app.currentUser.mongoClient("mongodb-atlas");
       if (this.properties.length == 0) {
-        const data = await mongo
-          .db("Management")
-          .collection("Properties")
-          .find();
+        const data = await propertyCollection.find();
         this.properties = data;
       }
     },
+    async getSelectedProperties(id) {
+      const data = await propertyCollection.find({ _id: { $in: id } });
+      this.selectedProperties = data;
+    },
     async getProperty(id) {
-      const mongo = app.currentUser.mongoClient("mongodb-atlas");
       const propId = new ObjectId(id);
-      this.property = await mongo
-        .db("Management")
-        .collection("Properties")
-        .findOne({ _id: propId });
+      this.property = await propertyCollection.findOne({ _id: propId });
     },
     getPropertyName(id) {
       let name = "";
@@ -52,51 +34,39 @@ export const usePropertyStore = defineStore("PropertyStore", {
       });
       return name;
     },
-    getDetails() {
-      return;
+    async saveQuestion() {
+      await propertyCollection.updateOne(
+        { _id: this.property._id },
+        { $addToSet: { questions: this.question } }
+      );
+      this.property.questions.push(this.question);
     },
     async upsertOne() {
-      const mongo = app.currentUser.mongoClient("mongodb-atlas");
       if (!this.property._id) {
+        console.log("test");
         this.property._id = new ObjectId();
       }
-      if (this.property) {
-        this.property.owner = this.property.owner.map((owner) => {
-          return new ObjectId(owner);
-        });
-        console.log(this.property.owner.length > 0);
-      }
-      if (this.property.cleaner.length > 0) {
-        this.property.cleaner = this.property.cleaner.map((cleaner) => {
-          return ObjectId(cleaner);
-        });
-      }
-      const result = await mongo
-        .db("Management")
-        .collection("Properties")
-        .updateOne(
-          { _id: this.property._id },
-          { $set: this.property },
-          { upsert: true }
+      const result = await propertyCollection.updateOne(
+        { _id: this.property._id },
+        { $set: this.property },
+        { upsert: true }
+      );
+      this.property.owner.forEach(async (owner) => {
+        await peopleCollection.updateOne(
+          { _id: owner._id },
+          { $addToSet: { properties: this.property._id } }
         );
+      });
+      this.property.cleaner.forEach(async (cleaner) => {
+        await peopleCollection.updateOne(
+          { _id: cleaner._id },
+          { $addToSet: { properties: this.property._id } }
+        );
+      });
       return result;
     },
     resetProperty() {
-      this.property = {
-        name: null,
-        status: null,
-        pms: null,
-        photo: null,
-        address: null,
-        lat: null,
-        lng: null,
-        hot: null,
-        owner: [],
-        cleaner: [],
-        issues: [],
-        questions: [],
-        bookings: [],
-      };
+      this.property = {};
       return;
     },
   },

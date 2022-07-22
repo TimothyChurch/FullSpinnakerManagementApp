@@ -8,12 +8,48 @@ export async function useSearch(query) {
     let properties = await propertyCollection.aggregate([
       {
         $search: {
-          autocomplete: { query, path: "name" },
           index: "property",
+          compound: {
+            should: [
+              { autocomplete: { query, path: "name" } },
+              { autocomplete: { query, path: "address" } },
+              {
+                embeddedDocument: {
+                  path: "owner",
+                  operator: {
+                    text: { query, path: "owner.name" },
+                  },
+                },
+              },
+            ],
+          },
         },
       },
       {
         $limit: 5,
+      },
+      {
+        $project: { _id: 1, name: 1, photo: 1 },
+      },
+    ]);
+    console.log(properties);
+    let questions = await propertyCollection.aggregate([
+      {
+        $search: {
+          index: "property",
+          embeddedDocument: {
+            path: "questions",
+            operator: {
+              text: { query, path: "questions.question" },
+            },
+          },
+        },
+      },
+      {
+        $limit: 5,
+      },
+      {
+        $project: { questions: 1 },
       },
     ]);
     let people = await peopleCollection.aggregate([
@@ -28,7 +64,6 @@ export async function useSearch(query) {
       },
     ]);
     let issues = []; // TODO Get data from mongodb
-    let questions = [];
     return { properties, people, issues, questions };
   } else {
     return [];

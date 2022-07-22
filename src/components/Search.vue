@@ -130,10 +130,13 @@ const exit = ({ result, page }) => {
           </div>
           <div
             v-for="result in results.questions"
-            :key="result._id"
+            :key="result"
             class="flex surface-card shadow-2 p-1 m-1"
           >
-            {{ result.Name }}
+            test
+            {{ result }}
+            {{ result.question }}
+            {{ result.answer }}
           </div>
         </div>
       </div>

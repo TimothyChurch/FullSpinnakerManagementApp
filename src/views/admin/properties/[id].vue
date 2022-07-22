@@ -1,19 +1,35 @@
 <script setup>
 import { watch } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { usePropertyStore } from "@/store/PropertyStore";
-import { usePeopleStore } from "@/store/PeopleStore";
 import { toggleEditProperty } from "@/composables/useDialog";
 import PropertyInfoTabs from "@/components/admin/properties/PropertyInfoTabs.vue";
 const route = useRoute();
+const router = useRouter();
 const PROPERTY_STORE = usePropertyStore();
-const PEOPLE_STORE = usePeopleStore();
 await PROPERTY_STORE.getProperty(route.params.id);
-await PEOPLE_STORE.getLinked();
 
 watch(route, () => {
   PROPERTY_STORE.getProperty(route.params.id);
 });
+const openEdit = () => {
+  toggleEditProperty();
+};
+const toPerson = (id) => {
+  router.push({ name: "Person", params: { id: id.toString() } });
+};
+const getStatus = (status) => {
+  switch (status) {
+    case "Active":
+      return "success";
+    case "Pending":
+      return "warning";
+    case "Lost":
+      return "error";
+    default:
+      return "warning";
+  }
+};
 </script>
 
 <template>
@@ -33,9 +49,17 @@ watch(route, () => {
     </Card>
     <Card id="infoCard" class="overflow-auto m-4">
       <template #title>
-        <span class="flex text-center">
-          {{ PROPERTY_STORE.property.name }}
-        </span>
+        <div class="flex flex-row justify-content-around align-items-center">
+          <div class="flex text-center text-lg">
+            {{ PROPERTY_STORE.property.name }}
+          </div>
+          <Badge
+            class="flex"
+            :value="PROPERTY_STORE.property.status"
+            :severity="getStatus(PROPERTY_STORE.property.status)"
+          />
+          <i class="pi pi-pencil p-2" @click="openEdit()" />
+        </div>
       </template>
       <template #content>
         <div class="flex flex-column align-items-center">
@@ -45,18 +69,19 @@ watch(route, () => {
             v-for="owner in PROPERTY_STORE.property.owner"
             :key="owner"
             class="m-2"
+            @click="toPerson(owner._id)"
           >
-            {{ owner.Name }}
+            {{ owner.name }}
           </Button>
           <label for="owner" class="font-medium text-900">Cleaner</label>
           <Button
             v-for="cleaner in PROPERTY_STORE.property.cleaner"
             :key="cleaner"
             class="m-2"
+            @click="toPerson(cleaner._id)"
           >
-            {{ cleaner.Name }}
+            {{ cleaner.name }}
           </Button>
-          <Button @click="toggleEditProperty">Edit</Button>
         </div>
       </template>
     </Card>
