@@ -9,20 +9,6 @@
         "city": {
             "bsonType": "string"
         },
-        "cleaner": {
-            "bsonType": "array",
-            "items": {
-                "bsonType": "object",
-                "properties": {
-                    "_id": {
-                        "bsonType": "objectId"
-                    },
-                    "name": {
-                        "bsonType": "string"
-                    }
-                }
-            }
-        },
         "hot": {
             "bsonType": "string"
         },
@@ -35,25 +21,25 @@
         "name": {
             "bsonType": "string"
         },
-        "owner": {
-            "bsonType": "array",
-            "items": {
-                "bsonType": "object",
-                "properties": {
-                    "_id": {
-                        "bsonType": "objectId"
-                    },
-                    "name": {
-                        "bsonType": "string"
-                    }
-                }
-            }
-        },
         "photo": {
             "bsonType": "string"
         },
         "pms": {
             "bsonType": "string"
+        },
+        "questions": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "object",
+                "properties": {
+                    "answer": {
+                        "bsonType": "string"
+                    },
+                    "question": {
+                        "bsonType": "string"
+                    }
+                }
+            }
         },
         "state": {
             "bsonType": "string"
