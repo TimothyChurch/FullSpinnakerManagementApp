@@ -1,6 +1,11 @@
 <script setup>
 import { ref } from "vue";
-import { toggleAddProperty } from "@/composables/useDialog";
+import {
+  toggleAddIssue,
+  toggleAddPerson,
+  toggleAddProperty,
+  toggleAddQuestion,
+} from "@/composables/useDialog";
 const items = ref([
   {
     label: "Add",
@@ -9,10 +14,12 @@ const items = ref([
       {
         label: "Issue",
         icon: "pi pi-fw pi-exclamation-circle",
+        command: toggleAddIssue,
       },
       {
         label: "Question",
         icon: "pi pi-fw pi-question",
+        command: toggleAddQuestion,
       },
       {
         label: "Property",
@@ -22,6 +29,7 @@ const items = ref([
       {
         label: "Person",
         icon: "pi pi-fw pi-user",
+        command: toggleAddPerson,
       },
     ],
   },

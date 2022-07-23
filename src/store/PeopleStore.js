@@ -1,6 +1,7 @@
 import { ObjectId } from "bson";
 import { defineStore } from "pinia";
 import { peopleCollection } from "@/composables/useMongodb";
+import { propertyCollection } from "../composables/useMongodb";
 
 export const usePeopleStore = defineStore("PeopleStore", {
   state: () => ({
@@ -17,44 +18,68 @@ export const usePeopleStore = defineStore("PeopleStore", {
         await this.refreshPeople();
       }
     },
-    async getOwnersNames() {
+    async refreshPeople() {
+      const data = await peopleCollection.find();
+      this.people = data;
+    },
+    async getOwners() {
       const owners = await peopleCollection.aggregate([
         { $match: { role: "Owner" } },
-        { $project: { name: 1 } },
       ]);
       this.owners = owners;
     },
     async getCleaners() {
       const cleaners = await peopleCollection.aggregate([
         { $match: { role: "Cleaner" } },
-        { $project: { name: 1 } },
       ]);
       this.cleaners = cleaners;
-    },
-    async refreshPeople() {
-      const data = await peopleCollection.find();
-      this.people = data;
     },
     async getPerson(id) {
       if (typeof id == "string") {
         id = new ObjectId(id);
       }
-      const data = await peopleCollection.findOne({ _id: id });
-      this.person = data;
+      const data = await peopleCollection.aggregate([
+        { $match: { _id: id } },
+        {
+          $lookup: {
+            from: "Properties",
+            localField: "properties",
+            foreignField: "_id",
+            as: "properties",
+          },
+        },
+      ]);
+      this.person = data[0];
     },
-    setPerson(id) {
-      console.log(id);
-      this.people.forEach((person) => {
-        if (person.id == id) {
-          console.log("here");
-          return person;
+    async savePerson() {
+      if (!this.person._id) {
+        this.person._id = new ObjectId();
+      }
+      const result = await peopleCollection.updateOne(
+        { _id: this.person._id },
+        { $set: this.person },
+        { upsert: true }
+      );
+      this.person.properties.forEach(async (property) => {
+        console.log("here");
+        if (this.person.role === "Owner") {
+          if (typeof property == "string") {
+            property = new ObjectId(property);
+          }
+          await propertyCollection.updateOne(
+            { _id: property },
+            { $addToSet: { owner: this.person._id } }
+          );
+        } else if (this.person.role === "Cleaner") {
+          console.log("Cleaner");
+          await propertyCollection.updateOne(
+            { _id: property },
+            { $addToSet: { cleaner: this.person._id } }
+          );
         }
       });
-    },
-    async getName(id) {
-      const personId = new ObjectId(id);
-      const results = await peopleCollection.findOne({ _id: personId });
-      return results.name;
+      await this.getPerson(this.person._id);
+      return result;
     },
   },
 });

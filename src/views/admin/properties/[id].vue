@@ -41,7 +41,7 @@ const getStatus = (status) => {
           <InputText
             class="w-full"
             type="text"
-            placeholder="Search property details"
+            placeholder="Coming in the future"
           />
         </div>
       </template>

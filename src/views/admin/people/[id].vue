@@ -3,6 +3,7 @@ import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { usePeopleStore } from "@/store/PeopleStore";
 import PeopleInfoTabs from "@/components/admin/people/PeopleInfoTabs.vue";
+import { toggleEditPerson } from "@/composables/useDialog";
 const route = useRoute();
 const PEOPLE_STORE = usePeopleStore();
 await PEOPLE_STORE.getPerson(route.params.id);
@@ -21,6 +22,9 @@ status.value = () => {
       return "warning";
   }
 };
+const openEdit = () => {
+  toggleEditPerson();
+};
 </script>
 
 <template>
@@ -28,16 +32,6 @@ status.value = () => {
     class="flex flex-column-reverse align-content-center lg:flex-row lg:justify-content-between"
   >
     <Card class="flex flex-grow-1 m-4 mr-0">
-      <template #title>
-        <div class="p-input-icon-left w-full">
-          <i class="pi pi-search" />
-          <InputText
-            class="w-full"
-            type="text"
-            placeholder="Search person details"
-          />
-        </div>
-      </template>
       <template #content><PeopleInfoTabs /></template>
     </Card>
     <Card id="infoCard" class="overflow-auto m-4">
@@ -49,7 +43,7 @@ status.value = () => {
             :value="PEOPLE_STORE.person.status"
             :severity="status()"
           />
-          <i class="pi pi-pencil" />
+          <i class="pi pi-pencil" @click="openEdit()" />
         </div>
       </template>
       <template #content>
@@ -62,11 +56,6 @@ status.value = () => {
           <div class="field flex justify-content-between mb-2 col-12">
             <label for="email" class="font-medium text-900"> Email </label>
             <div id="email">{{ PEOPLE_STORE.person.email }}</div>
-          </div>
-          <div class="surface-border border-top-1 col-12"></div>
-          <div class="field flex justify-content-between mb-2 col-12">
-            <label for="address" class="font-medium text-900"> Address </label>
-            <div id="address">{{ PEOPLE_STORE.person.address }}</div>
           </div>
           <div class="surface-border border-top-1 col-12"></div>
           <div class="field flex justify-content-between mb-2 col-12">

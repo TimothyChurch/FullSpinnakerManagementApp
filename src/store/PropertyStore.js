@@ -6,8 +6,8 @@ export const usePropertyStore = defineStore("PropertyStore", {
   state: () => ({
     properties: [],
     selectedProperties: [],
+    propertiesNames: [],
     property: {},
-    question: {},
   }),
   getters: {},
   actions: {
@@ -22,28 +22,36 @@ export const usePropertyStore = defineStore("PropertyStore", {
       this.selectedProperties = data;
     },
     async getProperty(id) {
-      const propId = new ObjectId(id);
-      this.property = await propertyCollection.findOne({ _id: propId });
+      if (typeof id == "string") {
+        id = new ObjectId(id);
+      }
+      const data = await propertyCollection.aggregate([
+        { $match: { _id: id } },
+        {
+          $lookup: {
+            from: "People",
+            localField: "owner",
+            foreignField: "_id",
+            as: "owner",
+          },
+        },
+        {
+          $lookup: {
+            from: "People",
+            localField: "cleaner",
+            foreignField: "_id",
+            as: "cleaner",
+          },
+        },
+      ]);
+      this.property = data[0];
     },
-    getPropertyName(id) {
-      let name = "";
-      this.properties.forEach((property) => {
-        if (property._id.toString() === id.toString()) {
-          name = property.Name;
-        }
-      });
-      return name;
-    },
-    async saveQuestion() {
-      await propertyCollection.updateOne(
-        { _id: this.property._id },
-        { $addToSet: { questions: this.question } }
-      );
-      this.property.questions.push(this.question);
+    async getPropertiesNames() {
+      const data = await propertyCollection.find({}, { name: 1 });
+      this.propertiesNames = data;
     },
     async upsertOne() {
       if (!this.property._id) {
-        console.log("test");
         this.property._id = new ObjectId();
       }
       const result = await propertyCollection.updateOne(
@@ -53,16 +61,17 @@ export const usePropertyStore = defineStore("PropertyStore", {
       );
       this.property.owner.forEach(async (owner) => {
         await peopleCollection.updateOne(
-          { _id: owner._id },
+          { _id: owner },
           { $addToSet: { properties: this.property._id } }
         );
       });
       this.property.cleaner.forEach(async (cleaner) => {
         await peopleCollection.updateOne(
-          { _id: cleaner._id },
+          { _id: cleaner },
           { $addToSet: { properties: this.property._id } }
         );
       });
+      await this.getProperty(this.property._id);
       return result;
     },
     resetProperty() {

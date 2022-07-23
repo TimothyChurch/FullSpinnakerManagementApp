@@ -1,11 +1,8 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { usePeopleStore } from "@/store/PeopleStore";
-import { usePropertyStore } from "@/store/PropertyStore";
 const router = useRouter();
 const PEOPLE_STORE = usePeopleStore();
-const PROPERTY_STORE = usePropertyStore();
-PROPERTY_STORE.getSelectedProperties(PEOPLE_STORE.person.properties);
 
 const toProperty = (id) => {
   router.push({ name: "Property", params: { id: id.toString() } });
@@ -27,7 +24,7 @@ const getStatus = (status) => {
 <template>
   <div class="flex flex-row flex-wrap overflow-auto">
     <div
-      v-for="property in PROPERTY_STORE.selectedProperties"
+      v-for="property in PEOPLE_STORE.person.properties"
       :key="property._id"
       class="flex col-3"
       @click="toProperty(property._id)"

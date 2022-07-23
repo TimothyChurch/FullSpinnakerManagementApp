@@ -6,9 +6,18 @@ import { toggleEditProperty } from "@/composables/useDialog";
 const router = useRouter();
 const PEOPLE_STORE = usePeopleStore();
 const PROPERTY_STORE = usePropertyStore();
-PEOPLE_STORE.getOwnersNames();
+PEOPLE_STORE.getOwners();
 PEOPLE_STORE.getCleaners();
+
 const handleClick = () => {
+  PROPERTY_STORE.property.owner = PROPERTY_STORE.property.owner.map((owner) => {
+    return owner._id;
+  });
+  PROPERTY_STORE.property.cleaner = PROPERTY_STORE.property.cleaner.map(
+    (cleaner) => {
+      return cleaner._id;
+    }
+  );
   PROPERTY_STORE.upsertOne();
   router.push(`/admin/properties/${PROPERTY_STORE.property._id.toString()}`);
   toggleEditProperty();
