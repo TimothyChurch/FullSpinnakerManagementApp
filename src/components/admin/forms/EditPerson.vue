@@ -19,6 +19,7 @@ const roles = [
   "Pest Control",
   "Electrician",
   "Locksmith",
+  "Appliance Repair",
   "Admin",
 ];
 

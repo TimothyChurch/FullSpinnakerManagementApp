@@ -13,3 +13,5 @@ export const usersCollection = mongo.db("Management").collection("Users");
 export const questionsCollection = mongo
   .db("Management")
   .collection("Questions");
+
+export const issuesCollection = mongo.db("Management").collection("Issues");

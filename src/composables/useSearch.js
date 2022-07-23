@@ -2,6 +2,7 @@ import { useToggle } from "@vueuse/core";
 import { ref } from "vue";
 
 import { peopleCollection, propertyCollection } from "@/composables/useMongodb";
+import { questionsCollection } from "./useMongodb";
 
 export async function useSearch(query) {
   if (query) {
@@ -32,25 +33,9 @@ export async function useSearch(query) {
         $project: { _id: 1, name: 1, photo: 1 },
       },
     ]);
-    console.log(properties);
-    let questions = await propertyCollection.aggregate([
-      {
-        $search: {
-          index: "property",
-          embeddedDocument: {
-            path: "questions",
-            operator: {
-              text: { query, path: "questions.question" },
-            },
-          },
-        },
-      },
-      {
-        $limit: 5,
-      },
-      {
-        $project: { questions: 1 },
-      },
+    let questions = await questionsCollection.aggregate([
+      { $search: { autocomplete: { query, path: "question" } } },
+      { $limit: 5 },
     ]);
     let people = await peopleCollection.aggregate([
       {

@@ -10,14 +10,20 @@ PEOPLE_STORE.getOwners();
 PEOPLE_STORE.getCleaners();
 
 const handleClick = () => {
-  PROPERTY_STORE.property.owner = PROPERTY_STORE.property.owner.map((owner) => {
-    return owner._id;
-  });
-  PROPERTY_STORE.property.cleaner = PROPERTY_STORE.property.cleaner.map(
-    (cleaner) => {
-      return cleaner._id;
-    }
-  );
+  if (PROPERTY_STORE.property.owner) {
+    PROPERTY_STORE.property.owner = PROPERTY_STORE.property.owner.map(
+      (owner) => {
+        return owner._id;
+      }
+    );
+  }
+  if (PROPERTY_STORE.property.cleaner) {
+    PROPERTY_STORE.property.cleaner = PROPERTY_STORE.property.cleaner.map(
+      (cleaner) => {
+        return cleaner._id;
+      }
+    );
+  }
   PROPERTY_STORE.upsertOne();
   router.push(`/admin/properties/${PROPERTY_STORE.property._id.toString()}`);
   toggleEditProperty();

@@ -47,7 +47,10 @@ export const usePropertyStore = defineStore("PropertyStore", {
       this.property = data[0];
     },
     async getPropertiesNames() {
-      const data = await propertyCollection.find({}, { name: 1 });
+      const data = await propertyCollection.aggregate([
+        { $project: { name: 1 } },
+        { $sort: { name: 1 } },
+      ]);
       this.propertiesNames = data;
     },
     async upsertOne() {
@@ -59,18 +62,22 @@ export const usePropertyStore = defineStore("PropertyStore", {
         { $set: this.property },
         { upsert: true }
       );
-      this.property.owner.forEach(async (owner) => {
-        await peopleCollection.updateOne(
-          { _id: owner },
-          { $addToSet: { properties: this.property._id } }
-        );
-      });
-      this.property.cleaner.forEach(async (cleaner) => {
-        await peopleCollection.updateOne(
-          { _id: cleaner },
-          { $addToSet: { properties: this.property._id } }
-        );
-      });
+      if (this.property.owner) {
+        this.property.owner.forEach(async (owner) => {
+          await peopleCollection.updateOne(
+            { _id: owner },
+            { $addToSet: { properties: this.property._id } }
+          );
+        });
+      }
+      if (this.property.cleaner) {
+        this.property.cleaner.forEach(async (cleaner) => {
+          await peopleCollection.updateOne(
+            { _id: cleaner },
+            { $addToSet: { properties: this.property._id } }
+          );
+        });
+      }
       await this.getProperty(this.property._id);
       return result;
     },

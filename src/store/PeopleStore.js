@@ -9,7 +9,7 @@ export const usePeopleStore = defineStore("PeopleStore", {
     person: {},
     owners: [],
     cleaners: [],
-    vendors: [],
+    technicians: [],
   }),
   getters: {},
   actions: {
@@ -25,14 +25,38 @@ export const usePeopleStore = defineStore("PeopleStore", {
     async getOwners() {
       const owners = await peopleCollection.aggregate([
         { $match: { role: "Owner" } },
+        { $sort: { name: 1 } },
       ]);
       this.owners = owners;
     },
     async getCleaners() {
       const cleaners = await peopleCollection.aggregate([
         { $match: { role: "Cleaner" } },
+        { $sort: { name: 1 } },
       ]);
       this.cleaners = cleaners;
+    },
+    async getTechnicians() {
+      const technicians = await peopleCollection.aggregate([
+        {
+          $match: {
+            role: {
+              $in: [
+                "HVAC",
+                "Yard",
+                "Handyman",
+                "Plumber",
+                "Pest Control",
+                "Electrician",
+                "Locksmith",
+                "Appliance Repair",
+              ],
+            },
+          },
+        },
+        { $sort: { name: 1 } },
+      ]);
+      this.technicians = technicians;
     },
     async getPerson(id) {
       if (typeof id == "string") {
@@ -61,7 +85,6 @@ export const usePeopleStore = defineStore("PeopleStore", {
         { upsert: true }
       );
       this.person.properties.forEach(async (property) => {
-        console.log("here");
         if (this.person.role === "Owner") {
           if (typeof property == "string") {
             property = new ObjectId(property);

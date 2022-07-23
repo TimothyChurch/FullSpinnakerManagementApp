@@ -20,7 +20,7 @@ const exit = ({ result, page }) => {
 <template>
   <Dialog
     :visible="visible"
-    @update:visible="exit"
+    @update:visible="toggleVisible"
     contentClass="flex flex-column w-4/5"
   >
     <template #header>
@@ -133,10 +133,9 @@ const exit = ({ result, page }) => {
             :key="result"
             class="flex surface-card shadow-2 p-1 m-1"
           >
-            test
-            {{ result }}
-            {{ result.question }}
-            {{ result.answer }}
+            <div @click="exit({ result, page: 'Question' })">
+              {{ result.question }}
+            </div>
           </div>
         </div>
       </div>

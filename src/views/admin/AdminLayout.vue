@@ -4,6 +4,7 @@ import { useMagicKeys } from "@vueuse/core";
 import { useRouter } from "vue-router";
 import * as Realm from "realm-web";
 import { toggleVisible } from "@/composables/useSearch";
+import { toggleAddIssue } from "@/composables/useDialog";
 import Search from "@/components/Search";
 
 // Hot keys for search model
@@ -128,6 +129,9 @@ const sideNav = [
         <ul
           class="list-none p-0 m-0 hidden lg:flex lg:align-items-center select-none lg:flex-row surface-section border-1 lg:border-none surface-border right-0 top-100 z-1 shadow-2 lg:shadow-none absolute lg:static"
         >
+          <li>
+            <Button @click="toggleAddIssue()">Add Issue</Button>
+          </li>
           <li>
             <a
               v-ripple

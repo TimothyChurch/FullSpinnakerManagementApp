@@ -18,7 +18,7 @@ const saveQuestion = () => {
     ];
   } else {
     QUESTION_STORE.question.answer.push({
-      property: property.value,
+      property: property.value._id,
       answer: answer.value,
     });
   }

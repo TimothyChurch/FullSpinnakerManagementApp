@@ -1,10 +1,13 @@
 <script setup>
 import { useIssueStore } from "@/store/IssueStore";
 import { usePropertyStore } from "@/store/PropertyStore";
+import { usePeopleStore } from "@/store/PeopleStore";
 import { toggleEditIssue } from "@/composables/useDialog";
 const ISSUE_STORE = useIssueStore();
 const PROPERTY_STORE = usePropertyStore();
+const PEOPLE_STORE = usePeopleStore();
 PROPERTY_STORE.getPropertiesNames();
+PEOPLE_STORE.getTechnicians();
 const status = [
   "Reported",
   "Owner Notified",
@@ -14,6 +17,7 @@ const status = [
 ];
 const type = ["Maintenance", "Cleaning", "Lock", "Guest Damage"];
 const saveIssue = () => {
+  ISSUE_STORE.issue.updated = new Date();
   ISSUE_STORE.saveIssue();
   toggleEditIssue();
 };
@@ -24,12 +28,12 @@ const saveIssue = () => {
     <div class="grid formgrid p-fluid">
       <div class="field mb-4 col-12">
         <label for="title" class="font-medium text-900">Title</label>
-        <InputText type="text" id="title" v-model="ISSUE_STORE.issue.tittle" />
+        <InputText type="text" id="title" v-model="ISSUE_STORE.issue.title" />
       </div>
       <div class="field mb-4 col-12 md:col-4">
         <label for="property" class="font-medium text-900">Property</label>
         <Dropdown
-          v-model="property"
+          v-model="ISSUE_STORE.issue.property"
           :options="PROPERTY_STORE.propertiesNames"
           :filter="true"
           optionLabel="name"
@@ -65,10 +69,12 @@ const saveIssue = () => {
       </div>
       <div class="field mb-4 col-12 md:col-4">
         <label for="technician" class="font-medium text-900">Technician</label>
-        <InputText
+        <Dropdown
           v-model="ISSUE_STORE.issue.technician"
+          :options="PEOPLE_STORE.technicians"
+          optionLabel="name"
+          :filter="true"
           id="technician"
-          placeholder="Will be linked dropdown later"
         />
       </div>
       <div class="field mb-4 col-12 md:col-8">

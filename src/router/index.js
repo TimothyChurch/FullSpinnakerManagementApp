@@ -6,13 +6,13 @@ import AdminLayout from "../views/admin/AdminLayout.vue";
 import AdminHome from "../views/admin/index.vue";
 // Admin Properties Routes
 import AdminPropertiesLayout from "../views/admin/properties/PropertiesLayout.vue";
-import AdminPropertiesTable from "../views/admin/properties/PropertiesTable.vue";
 import AdminProperty from "../views/admin/properties/[id].vue";
-import AdminAddProperty from "../components/admin/forms/EditProperty.vue";
 // Admin People Routes
 import AdminPeopleLayout from "../views/admin/people/PeopleLayout.vue";
-import AdminPeopleTable from "../views/admin/people/PeopleTable.vue";
 import AdminPerson from "../views/admin/people/[id].vue";
+// Admin Questions Routes
+import AdminQuestionsLayout from "../views/admin/questions/QuestionsLayout.vue";
+import AdminQuestion from "../views/admin/questions/[id].vue";
 // Owner Routes
 import OwnerLayout from "../views/owner/OwnerLayout.vue";
 // AirDNA Routes
@@ -53,19 +53,9 @@ const routes = [
         component: AdminPropertiesLayout,
         children: [
           {
-            path: "",
-            name: "Properties Table",
-            component: AdminPropertiesTable,
-          },
-          {
             path: ":id",
             name: "Property",
             component: AdminProperty,
-          },
-          {
-            path: "new",
-            name: "Add Property",
-            component: AdminAddProperty,
           },
         ],
       },
@@ -74,7 +64,6 @@ const routes = [
         name: "PeopleLayout",
         component: AdminPeopleLayout,
         children: [
-          { path: "", name: "People Table", component: AdminPeopleTable },
           {
             path: ":id",
             name: "Person",
@@ -82,7 +71,18 @@ const routes = [
           },
         ],
       },
-
+      {
+        path: "questions",
+        name: "QuestionsLayout",
+        component: AdminQuestionsLayout,
+        children: [
+          {
+            path: ":id",
+            name: "Question",
+            component: AdminQuestion,
+          },
+        ],
+      },
       {
         path: "airdna",
         name: "airdna",
