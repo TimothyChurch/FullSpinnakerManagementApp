@@ -1,7 +1,7 @@
 [
     {
         "route": "/booking",
-        "http_method": "POST",
+        "http_method": "*",
         "function_name": "IncomingBooking",
         "validation_method": "NO_VALIDATION",
         "respond_result": false,
