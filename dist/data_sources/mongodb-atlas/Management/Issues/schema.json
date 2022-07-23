@@ -1,0 +1,64 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "created": {
+            "bsonType": "date"
+        },
+        "details": {
+            "bsonType": "string"
+        },
+        "guest": {
+            "bsonType": "string"
+        },
+        "property": {
+            "bsonType": "object",
+            "properties": {
+                "_id": {
+                    "bsonType": "objectId"
+                },
+                "address": {
+                    "bsonType": "string"
+                },
+                "hot": {
+                    "bsonType": "string"
+                },
+                "lat": {
+                    "bsonType": "string"
+                },
+                "lng": {
+                    "bsonType": "string"
+                },
+                "name": {
+                    "bsonType": "string"
+                },
+                "owner": {
+                    "bsonType": "array",
+                    "items": {
+                        "bsonType": "objectId"
+                    }
+                },
+                "photo": {
+                    "bsonType": "string"
+                },
+                "pms": {
+                    "bsonType": "string"
+                },
+                "status": {
+                    "bsonType": "string"
+                }
+            }
+        },
+        "status": {
+            "bsonType": "string"
+        },
+        "tittle": {
+            "bsonType": "string"
+        },
+        "type": {
+            "bsonType": "string"
+        }
+    },
+    "title": "Issue"
+}
