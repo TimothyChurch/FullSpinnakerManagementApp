@@ -6,7 +6,7 @@ exports = async function (payload) {
     const bookingsCollection = mongodb.db("Management").collection("Bookings");
     const guestsCollection = mongodb.db("Management").collection("Guests");
     
-    await bookingCollection.updateOne(
+    await bookingsCollection.updateOne(
       { "code": booking.code },
       { "$set": booking },
       { "upsert": true },
