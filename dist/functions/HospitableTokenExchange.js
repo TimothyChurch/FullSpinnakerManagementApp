@@ -2,7 +2,7 @@ exports = async function() {
  
   const clientId = context.values.get("HOSPITABLE_CLIENT_ID");
   const clientSecret = context.values.get("HOSPITABLE_CLIENT_SECRET");
- return clientSecret;
+
   const accessToken = await context.http.post({
     url: "https://auth.hospitable.com/oauth/token",
     headers: {"Content-Type": ["application/json"]},

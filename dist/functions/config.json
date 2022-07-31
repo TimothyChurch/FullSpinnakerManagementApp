@@ -1,5 +1,11 @@
 [
     {
+        "name": "Hospitable",
+        "private": false,
+        "run_as_system": true,
+        "disable_arg_logs": true
+    },
+    {
         "name": "HospitableTokenExchange",
         "private": false
     },
@@ -7,11 +13,5 @@
         "name": "IncomingBooking",
         "private": false,
         "run_as_system": true
-    },
-    {
-        "name": "hospitable",
-        "private": false,
-        "run_as_system": true,
-        "disable_arg_logs": true
     }
 ]
