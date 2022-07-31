@@ -1,21 +1,24 @@
-exports = async function({path, query}) {
+exports = async function() {
   
   const token = context.functions.execute("HospitableTokenExchange");
   
-  const url = "api.hospitable.com/";
-  const headers = {'Content-Type': 'application/json', Authorization: token};
-  
+  const url = "api.hospitable.com";
+  const headers = {'Content-Type': ['application/json'], Authorization: token};
+  const path = "/calendar/521572";
+  const query = { start_date: ["2022-07-01"], end_date: ["2022-08-30"]};
   try {
-    let response = await context.http.get({
+    const response = await context.http.get({
       "scheme": "https",
       "host": url,
       "path": path,
       "query": query,
       "headers": headers
-    }).then(response => {
-        const ejson_body = EJSON.parse(response.body.text());
-        return ejson_body;
-    });
+    })
+    // .then(response => {
+    //   return response.status
+    //     // const ejson_body = EJSON.parse(response.body.text());
+    //     // return ejson_body;
+    // });
     return response;
   } catch(err) {
     return err;
