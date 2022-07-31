@@ -1,6 +1,6 @@
 exports = async function({path, query}) {
   
-  const token = context.function.execute('HospitableToken');
+  const token = context.functions.execute("HospitableTokenExchange");
   
   const url = "api.hospitable.com/";
   const headers = {'Content-Type': 'application/json', Authorization: token};
