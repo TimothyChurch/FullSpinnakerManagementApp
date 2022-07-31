@@ -13,6 +13,8 @@ exports = async function() {
       "path": path,
       "query": query,
       "headers": headers
+    }).then((response) => {
+      return response
     })
     // .then(response => {
     //   return response.status
