@@ -1,43 +1,55 @@
 {
     "properties": {
+        "Address": {
+            "bsonType": "string"
+        },
+        "Airbnb Email": {
+            "bsonType": "string"
+        },
+        "Airbnb Password": {
+            "bsonType": "string"
+        },
         "Birthday": {
+            "bsonType": "string"
+        },
+        "Cleaning Properties": {
+            "bsonType": "string"
+        },
+        "Email": {
+            "bsonType": "string"
+        },
+        "Name": {
+            "bsonType": "string"
+        },
+        "Phone": {
+            "bsonType": "string"
+        },
+        "Properties": {
+            "bsonType": "objectId"
+        },
+        "Role": {
+            "bsonType": "string"
+        },
+        "Status": {
+            "bsonType": "string"
+        },
+        "Type of Owner": {
+            "bsonType": "string"
+        },
+        "VRBO Email": {
+            "bsonType": "string"
+        },
+        "VRBO Password": {
+            "bsonType": "string"
+        },
+        "Venmo ID": {
+            "bsonType": "string"
+        },
+        "Website": {
             "bsonType": "string"
         },
         "_id": {
             "bsonType": "objectId"
-        },
-        "airbnbEmail": {
-            "bsonType": "string"
-        },
-        "airbnbPassword": {
-            "bsonType": "string"
-        },
-        "email": {
-            "bsonType": "string"
-        },
-        "name": {
-            "bsonType": "string"
-        },
-        "phone": {
-            "bsonType": "string"
-        },
-        "properties": {
-            "bsonType": "array",
-            "items": {
-                "bsonType": "objectId"
-            }
-        },
-        "role": {
-            "bsonType": "string"
-        },
-        "status": {
-            "bsonType": "string"
-        },
-        "vrboEmail": {
-            "bsonType": "string"
-        },
-        "vrboPassword": {
-            "bsonType": "string"
         }
     },
     "title": "Person"
