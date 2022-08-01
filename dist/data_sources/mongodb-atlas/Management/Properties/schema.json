@@ -9,8 +9,20 @@
         "city": {
             "bsonType": "string"
         },
+        "cleaner": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "objectId"
+            }
+        },
         "hot": {
             "bsonType": "string"
+        },
+        "issues": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "objectId"
+            }
         },
         "lat": {
             "bsonType": "string"
@@ -20,6 +32,12 @@
         },
         "name": {
             "bsonType": "string"
+        },
+        "owner": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "objectId"
+            }
         },
         "photo": {
             "bsonType": "string"
