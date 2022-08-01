@@ -10,45 +10,10 @@
             "bsonType": "string"
         },
         "guest": {
-            "bsonType": "string"
+            "bsonType": "objectId"
         },
         "property": {
-            "bsonType": "object",
-            "properties": {
-                "_id": {
-                    "bsonType": "objectId"
-                },
-                "address": {
-                    "bsonType": "string"
-                },
-                "hot": {
-                    "bsonType": "string"
-                },
-                "lat": {
-                    "bsonType": "string"
-                },
-                "lng": {
-                    "bsonType": "string"
-                },
-                "name": {
-                    "bsonType": "string"
-                },
-                "owner": {
-                    "bsonType": "array",
-                    "items": {
-                        "bsonType": "objectId"
-                    }
-                },
-                "photo": {
-                    "bsonType": "string"
-                },
-                "pms": {
-                    "bsonType": "string"
-                },
-                "status": {
-                    "bsonType": "string"
-                }
-            }
+            "bsonType": "objectId"
         },
         "status": {
             "bsonType": "string"
