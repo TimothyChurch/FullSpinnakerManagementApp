@@ -15,6 +15,12 @@
                 "bsonType": "objectId"
             }
         },
+        "details": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "objectId"
+            }
+        },
         "hot": {
             "bsonType": "string"
         },
@@ -44,12 +50,6 @@
         },
         "pms": {
             "bsonType": "string"
-        },
-        "questions": {
-            "bsonType": "array",
-            "items": {
-                "bsonType": "objectId"
-            }
         },
         "state": {
             "bsonType": "string"
