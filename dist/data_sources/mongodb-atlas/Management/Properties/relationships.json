@@ -1,7 +1,25 @@
 {
+    "cleaner": {
+        "ref": "#/relationship/mongodb-atlas/Management/People",
+        "source_key": "cleaner",
+        "foreign_key": "_id",
+        "is_list": true
+    },
+    "issues": {
+        "ref": "#/relationship/mongodb-atlas/Management/Issues",
+        "source_key": "issues",
+        "foreign_key": "_id",
+        "is_list": true
+    },
     "owner": {
         "ref": "#/relationship/mongodb-atlas/Management/People",
         "source_key": "owner",
+        "foreign_key": "_id",
+        "is_list": true
+    },
+    "questions": {
+        "ref": "#/relationship/mongodb-atlas/Management/Questions",
+        "source_key": "questions",
         "foreign_key": "_id",
         "is_list": true
     }
