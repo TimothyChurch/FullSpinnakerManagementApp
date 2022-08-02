@@ -1,1 +1,8 @@
-{}
+{
+    "owner": {
+        "ref": "#/relationship/mongodb-atlas/Management/People",
+        "source_key": "owner",
+        "foreign_key": "_id",
+        "is_list": true
+    }
+}
