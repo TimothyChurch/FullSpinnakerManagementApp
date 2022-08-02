@@ -1,1 +1,8 @@
-{}
+{
+    "property": {
+        "ref": "#/relationship/mongodb-atlas/Management/Properties",
+        "source_key": "property",
+        "foreign_key": "_id",
+        "is_list": false
+    }
+}
