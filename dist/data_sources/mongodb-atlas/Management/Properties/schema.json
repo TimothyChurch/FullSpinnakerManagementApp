@@ -18,7 +18,16 @@
         "details": {
             "bsonType": "array",
             "items": {
-                "bsonType": "objectId"
+                "_id": {
+                    "bsonType": "objectId"
+                },
+                "info": {
+                    "bsonType": "objectId"
+                },
+                "tags": {
+                    "bsonType": "array",
+                    "items": "string"
+                }
             }
         },
         "hot": {
