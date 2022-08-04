@@ -18,15 +18,14 @@
         "details": {
             "bsonType": "array",
             "items": {
-                "_id": {
-                    "bsonType": "objectId"
-                },
-                "info": {
-                    "bsonType": "objectId"
-                },
-                "tags": {
-                    "bsonType": "array",
-                    "items": "string"
+                "bsonType": "object",
+                "properties": {
+                    "_id": {
+                        "bsonType": "objectId"
+                    },
+                    "info": {
+                        "bsonType": "string"
+                    }
                 }
             }
         },
@@ -59,6 +58,12 @@
         },
         "pms": {
             "bsonType": "string"
+        },
+        "questions": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "objectId"
+            }
         },
         "state": {
             "bsonType": "string"
