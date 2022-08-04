@@ -25,6 +25,12 @@
                     },
                     "info": {
                         "bsonType": "string"
+                    },
+                    "tags": {
+                        "bsonType": "array",
+                        "items": {
+                            "bsonType": "string"
+                        }
                     }
                 }
             }
