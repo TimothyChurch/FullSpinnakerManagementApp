@@ -80,6 +80,9 @@
         "street": {
             "bsonType": "string"
         },
+        "unit": {
+            "bsonType": "string"
+        },
         "zip": {
             "bsonType": "string"
         }
