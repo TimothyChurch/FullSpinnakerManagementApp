@@ -41,7 +41,36 @@
         "issues": {
             "bsonType": "array",
             "items": {
-                "bsonType": "objectId"
+                "bsonType": "object",
+                "properties": {
+                    "_id": {
+                        "bsonType": "objectId"
+                    },
+                    "created": {
+                        "bsonType": "date"
+                    },
+                    "details": {
+                        "bsonType": "string"
+                    },
+                    "guest": {
+                        "bsonType": "objectId"
+                    },
+                    "status": {
+                        "bsonType": "string"
+                    },
+                    "techNotes": {
+                        "bsonType": "string"
+                    },
+                    "technician": {
+                        "bsonType": "objectId"
+                    },
+                    "title": {
+                        "bsonType": "string"
+                    },
+                    "type": {
+                        "bsonType": "string"
+                    }
+                }
             }
         },
         "lat": {
