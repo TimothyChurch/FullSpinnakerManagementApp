@@ -1,6 +1,6 @@
 exports = async function (payload) {
-    // const booking = JSON.parse(payload.body.text());
-    const booking = payload;
+    const booking = JSON.parse(payload.body.text());
+    // const booking = payload;
     
     const mongodb = context.services.get("mongodb-atlas");
     const propertyCollection = mongodb.db("Management").collection("Properties");
