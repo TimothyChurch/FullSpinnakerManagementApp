@@ -4,8 +4,8 @@ exports = async function (payload) {
     
     const mongodb = context.services.get("mongodb-atlas");
     const propertyCollection = mongodb.db("Management").collection("Properties");
-    if(!booking.listing.property_id) {
-      propertyCollection.insertOne({bookings: booking})
+    if(!booking.listing["property_id"]) {
+      propertyCollection.insertOne({bookings: booking});
     } else {
       const idString = Math.trunc(booking.listing.property_id.$numberDouble).toString();
   
