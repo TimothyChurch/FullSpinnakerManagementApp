@@ -1,29 +1,39 @@
 exports = async function (payload) {
-    const booking = JSON.parse(payload.body.text());
-    const guest = booking.guest;
+    // const booking = JSON.parse(payload.body.text());
+    const booking = payload;
     
     const mongodb = context.services.get("mongodb-atlas");
     const propertyCollection = mongodb.db("Management").collection("Properties");
     
-    const property = await propertyCollection.findOne({
-      query: { "pms": booking.listing.property_id.toString()},
-      projection: { _id: 1, bookings: 1 }
-    });
-    
-    if (property.bookings) {
-      if (property.bookings.some((b, index) => b.listing.property_id == booking.listing.property_id.toString())) {
-        property.bookings[index] = booking;
-      } else {
-        property.bookings.push(booking);
-      }
+    const idString = Math.trunc(booking.listing.property_id.$numberDouble).toString();
+
+    const property = await propertyCollection.findOne(
+      { pms: idString }
+      );
+
+    if (!property.bookings) {
+      property.bookings = booking;
     } else {
-      property.bookings = [booking];
+      const index = property.bookings.findIndex(b => {
+        if (b.code === booking.code) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      
+      if (index == -1) {
+        property.bookings.push(booking);
+      } else {
+        property.bookings[index] = booking;
+      }
+      
     }
-    
-    await propertyCollection.updateOne({
-      filter: {_id: property._id},
-      update: {bookings: property.bookings}
-    });
-    
+
+    await propertyCollection.updateOne(
+      {_id: property._id},
+      { $set: {bookings: property.bookings}}
+      );
+  
   return;
 };
