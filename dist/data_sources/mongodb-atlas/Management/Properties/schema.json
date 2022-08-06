@@ -6,6 +6,183 @@
         "address": {
             "bsonType": "string"
         },
+        "bookings": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "object",
+                "properties": {
+                    "adults": {
+                        "bsonType": "double"
+                    },
+                    "base_price": {
+                        "bsonType": "double"
+                    },
+                    "base_price_formatted": {
+                        "bsonType": "string"
+                    },
+                    "channel": {
+                        "bsonType": "string"
+                    },
+                    "checkin_time": {
+                        "bsonType": "string"
+                    },
+                    "checkout_time": {
+                        "bsonType": "string"
+                    },
+                    "children": {
+                        "bsonType": "double"
+                    },
+                    "code": {
+                        "bsonType": "string"
+                    },
+                    "created_at": {
+                        "bsonType": "double"
+                    },
+                    "currency": {
+                        "bsonType": "string"
+                    },
+                    "end_date": {
+                        "bsonType": "string"
+                    },
+                    "extras_price": {
+                        "bsonType": "double"
+                    },
+                    "extras_price_formatted": {
+                        "bsonType": "string"
+                    },
+                    "guest": {
+                        "bsonType": "object",
+                        "properties": {
+                            "email": {
+                                "bsonType": "string"
+                            },
+                            "first_name": {
+                                "bsonType": "string"
+                            },
+                            "id": {
+                                "bsonType": "string"
+                            },
+                            "last_name": {
+                                "bsonType": "string"
+                            },
+                            "location": {
+                                "bsonType": "string"
+                            },
+                            "phone": {
+                                "bsonType": "string"
+                            },
+                            "phone_last_4": {
+                                "bsonType": "double"
+                            },
+                            "picture_url": {
+                                "bsonType": "string"
+                            }
+                        }
+                    },
+                    "guest_fee": {
+                        "bsonType": "double"
+                    },
+                    "guest_fee_formatted": {
+                        "bsonType": "string"
+                    },
+                    "guests": {
+                        "bsonType": "double"
+                    },
+                    "host_service_fee": {
+                        "bsonType": "double"
+                    },
+                    "host_service_fee_formatted": {
+                        "bsonType": "string"
+                    },
+                    "infants": {
+                        "bsonType": "double"
+                    },
+                    "listing": {
+                        "bsonType": "object",
+                        "properties": {
+                            "address": {
+                                "bsonType": "string"
+                            },
+                            "id": {
+                                "bsonType": "string"
+                            },
+                            "lat": {
+                                "bsonType": "string"
+                            },
+                            "lng": {
+                                "bsonType": "string"
+                            },
+                            "name": {
+                                "bsonType": "string"
+                            },
+                            "nickname": {
+                                "bsonType": "string"
+                            },
+                            "picture_url": {
+                                "bsonType": "string"
+                            },
+                            "property_id": {
+                                "bsonType": "double"
+                            }
+                        }
+                    },
+                    "nights": {
+                        "bsonType": "double"
+                    },
+                    "payout_price": {
+                        "bsonType": "double"
+                    },
+                    "payout_price_formatted": {
+                        "bsonType": "string"
+                    },
+                    "per_night_price": {
+                        "bsonType": "double"
+                    },
+                    "per_night_price_formatted": {
+                        "bsonType": "string"
+                    },
+                    "security_price": {
+                        "bsonType": "string"
+                    },
+                    "security_price_formatted": {
+                        "bsonType": "string"
+                    },
+                    "sent_at": {
+                        "bsonType": "double"
+                    },
+                    "start_date": {
+                        "bsonType": "string"
+                    },
+                    "status": {
+                        "bsonType": "string"
+                    },
+                    "subtotal": {
+                        "bsonType": "string"
+                    },
+                    "subtotal_formatted": {
+                        "bsonType": "string"
+                    },
+                    "tax_amount": {
+                        "bsonType": "string"
+                    },
+                    "tax_amount_formatted": {
+                        "bsonType": "string"
+                    },
+                    "total_price": {
+                        "bsonType": "double"
+                    },
+                    "total_price_formatted": {
+                        "bsonType": "string"
+                    },
+                    "updated_at": {
+                        "bsonType": "double"
+                    },
+                    "user_id": {
+                        "bsonType": "string"
+                    }
+                }
+            }
+        },
         "city": {
             "bsonType": "string"
         },
@@ -18,19 +195,16 @@
         "details": {
             "bsonType": "array",
             "items": {
-                "bsonType": "object",
-                "properties": {
-                    "_id": {
-                        "bsonType": "objectId"
-                    },
-                    "info": {
+                "_id": {
+                    "bsonType": "objectId"
+                },
+                "info": {
+                    "bsonType": "string"
+                },
+                "tags": {
+                    "bsonType": "array",
+                    "items": {
                         "bsonType": "string"
-                    },
-                    "tags": {
-                        "bsonType": "array",
-                        "items": {
-                            "bsonType": "string"
-                        }
                     }
                 }
             }
@@ -38,46 +212,13 @@
         "hot": {
             "bsonType": "string"
         },
-        "issues": {
-            "bsonType": "array",
-            "items": {
-                "bsonType": "object",
-                "properties": {
-                    "_id": {
-                        "bsonType": "objectId"
-                    },
-                    "created": {
-                        "bsonType": "date"
-                    },
-                    "details": {
-                        "bsonType": "string"
-                    },
-                    "guest": {
-                        "bsonType": "objectId"
-                    },
-                    "status": {
-                        "bsonType": "string"
-                    },
-                    "techNotes": {
-                        "bsonType": "string"
-                    },
-                    "technician": {
-                        "bsonType": "objectId"
-                    },
-                    "title": {
-                        "bsonType": "string"
-                    },
-                    "type": {
-                        "bsonType": "string"
-                    }
-                }
-            }
-        },
         "lat": {
-            "bsonType": "string"
+            "bsonType": "object",
+            "properties": {}
         },
         "lng": {
-            "bsonType": "string"
+            "bsonType": "object",
+            "properties": {}
         },
         "name": {
             "bsonType": "string"
@@ -93,12 +234,6 @@
         },
         "pms": {
             "bsonType": "string"
-        },
-        "questions": {
-            "bsonType": "array",
-            "items": {
-                "bsonType": "objectId"
-            }
         },
         "state": {
             "bsonType": "string"
