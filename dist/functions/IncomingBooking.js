@@ -10,7 +10,19 @@ exports = async function (payload) {
     const property = await propertyCollection.findOne(
       { pms: idString }
       );
-
+    
+    if (!property) {
+      const propertyToWrite = {
+        name: booking.listing.name,
+        lat: booking.listing.lat,
+        lng: booking.listing.lng,
+        pms: Math.trunc(booking.listing.property_id.$numberDouble).toString(),
+        bookings: booking,
+      };
+      await propertyCollection.insertOne(propertyToWrite);
+      return;
+    }
+    
     if (!property.bookings) {
       property.bookings = booking;
     } else {
