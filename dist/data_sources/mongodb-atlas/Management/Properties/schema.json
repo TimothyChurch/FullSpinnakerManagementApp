@@ -14,9 +14,6 @@
                     "adults": {
                         "bsonType": "double"
                     },
-                    "base_price": {
-                        "bsonType": "double"
-                    },
                     "base_price_formatted": {
                         "bsonType": "string"
                     },
@@ -43,9 +40,6 @@
                     },
                     "end_date": {
                         "bsonType": "string"
-                    },
-                    "extras_price": {
-                        "bsonType": "double"
                     },
                     "extras_price_formatted": {
                         "bsonType": "string"
@@ -80,16 +74,10 @@
                         },
                         "title": "guests"
                     },
-                    "guest_fee": {
-                        "bsonType": "double"
-                    },
                     "guest_fee_formatted": {
                         "bsonType": "string"
                     },
                     "guests": {
-                        "bsonType": "double"
-                    },
-                    "host_service_fee": {
                         "bsonType": "double"
                     },
                     "host_service_fee_formatted": {
@@ -130,19 +118,10 @@
                     "nights": {
                         "bsonType": "double"
                     },
-                    "payout_price": {
-                        "bsonType": "double"
-                    },
                     "payout_price_formatted": {
                         "bsonType": "string"
                     },
-                    "per_night_price": {
-                        "bsonType": "double"
-                    },
                     "per_night_price_formatted": {
-                        "bsonType": "string"
-                    },
-                    "security_price": {
                         "bsonType": "string"
                     },
                     "security_price_formatted": {
@@ -157,19 +136,10 @@
                     "status": {
                         "bsonType": "string"
                     },
-                    "subtotal": {
-                        "type": "string"
-                    },
                     "subtotal_formatted": {
                         "bsonType": "string"
                     },
-                    "tax_amount": {
-                        "bsonType": "string"
-                    },
                     "tax_amount_formatted": {
-                        "bsonType": "string"
-                    },
-                    "total_price": {
                         "bsonType": "string"
                     },
                     "total_price_formatted": {
