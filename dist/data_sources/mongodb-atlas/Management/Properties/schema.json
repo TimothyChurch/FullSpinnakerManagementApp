@@ -157,7 +157,7 @@
                         "bsonType": "string"
                     },
                     "subtotal": {
-                        "bsonType": "string"
+                        "bsonType": "mixed"
                     },
                     "subtotal_formatted": {
                         "bsonType": "string"
