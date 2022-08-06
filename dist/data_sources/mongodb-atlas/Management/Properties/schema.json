@@ -159,7 +159,8 @@
                     "subtotal": {
                         "bsonType": [
                             "string",
-                            "double"
+                            "double",
+                            "null"
                         ]
                     },
                     "subtotal_formatted": {
@@ -172,7 +173,11 @@
                         "bsonType": "string"
                     },
                     "total_price": {
-                        "bsonType": "double"
+                        "bsonType": [
+                            "string",
+                            "double",
+                            "null"
+                        ]
                     },
                     "total_price_formatted": {
                         "bsonType": "string"
