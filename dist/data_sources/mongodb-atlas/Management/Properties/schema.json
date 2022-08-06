@@ -169,7 +169,11 @@
                         "bsonType": "string"
                     },
                     "total_price": {
-                        "bsonType": "mixed"
+                        "bsonType": [
+                            "string",
+                            "int",
+                            "long"
+                        ]
                     },
                     "total_price_formatted": {
                         "bsonType": "string"
