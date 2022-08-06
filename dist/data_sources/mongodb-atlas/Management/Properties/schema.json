@@ -171,8 +171,7 @@
                     "total_price": {
                         "bsonType": [
                             "string",
-                            "int",
-                            "long"
+                            "double"
                         ]
                     },
                     "total_price_formatted": {
