@@ -157,7 +157,7 @@
                         "bsonType": "string"
                     },
                     "subtotal": {
-                        "bsonType": "mixed"
+                        "bsonType": "string"
                     },
                     "subtotal_formatted": {
                         "bsonType": "string"
@@ -195,16 +195,19 @@
         "details": {
             "bsonType": "array",
             "items": {
-                "_id": {
-                    "bsonType": "objectId"
-                },
-                "info": {
-                    "bsonType": "string"
-                },
-                "tags": {
-                    "bsonType": "array",
-                    "items": {
+                "bsonType": "object",
+                "properties": {
+                    "_id": {
+                        "bsonType": "objectId"
+                    },
+                    "info": {
                         "bsonType": "string"
+                    },
+                    "tags": {
+                        "bsonType": "array",
+                        "items": {
+                            "bsonType": "string"
+                        }
                     }
                 }
             }
