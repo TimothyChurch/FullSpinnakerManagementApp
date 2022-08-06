@@ -77,7 +77,8 @@
                             "picture_url": {
                                 "bsonType": "string"
                             }
-                        }
+                        },
+                        "title": "guests"
                     },
                     "guest_fee": {
                         "bsonType": "double"
@@ -211,7 +212,8 @@
                         }
                     }
                 }
-            }
+            },
+            "title": "details"
         },
         "hot": {
             "bsonType": "string"
@@ -249,7 +251,8 @@
                         "bsonType": "string"
                     }
                 }
-            }
+            },
+            "title": "issues"
         },
         "lat": {
             "bsonType": "string"
