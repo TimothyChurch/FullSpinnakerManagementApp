@@ -215,6 +215,41 @@
         "hot": {
             "bsonType": "string"
         },
+        "issues": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "object",
+                "properties": {
+                    "_id": {
+                        "bsonType": "objectId"
+                    },
+                    "created": {
+                        "bsonType": "timestamp"
+                    },
+                    "details": {
+                        "bsonType": "string"
+                    },
+                    "guest": {
+                        "bsonType": "objectId"
+                    },
+                    "status": {
+                        "bsonType": "string"
+                    },
+                    "techNotes": {
+                        "bsonType": "string"
+                    },
+                    "technician": {
+                        "bsonType": "objectId"
+                    },
+                    "title": {
+                        "bsonType": "string"
+                    },
+                    "type": {
+                        "bsonType": "string"
+                    }
+                }
+            }
+        },
         "lat": {
             "bsonType": "string"
         },
