@@ -157,11 +157,7 @@
                         "bsonType": "string"
                     },
                     "subtotal": {
-                        "bsonType": [
-                            "string",
-                            "double",
-                            "null"
-                        ]
+                        "bsonType": "string"
                     },
                     "subtotal_formatted": {
                         "bsonType": "string"
@@ -185,7 +181,8 @@
                         "bsonType": "string"
                     }
                 }
-            }
+            },
+            "title": "bookings"
         },
         "city": {
             "bsonType": "string"
