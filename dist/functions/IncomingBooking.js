@@ -5,7 +5,7 @@ exports = async function (payload) {
     const mongodb = context.services.get("mongodb-atlas");
     const propertyCollection = mongodb.db("Management").collection("Properties");
     
-    const idString = Math.trunc(booking.listing.property_id.$numberDouble).toString();
+    const idString = Math.trunc(booking.listing.property_id).toString();
 
     const property = await propertyCollection.findOne(
       { pms: idString }
