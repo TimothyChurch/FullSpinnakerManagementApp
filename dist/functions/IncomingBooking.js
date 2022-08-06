@@ -9,6 +9,7 @@ exports = async function (payload) {
       query: { "pms": booking.listing.property_id.toString()},
       projection: { _id: 1, bookings: 1 }
     });
+    
     if (property.bookings) {
       if (property.bookings.some((b, index) => b.listing.property_id == booking.listing.property_id.toString())) {
         property.bookings[index] = booking;
