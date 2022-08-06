@@ -159,7 +159,7 @@
                     "subtotal": {
                         "bsonType": [
                             "string",
-                            "double",
+                            "number",
                             "null"
                         ]
                     },
