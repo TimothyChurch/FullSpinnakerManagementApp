@@ -157,7 +157,11 @@
                         "bsonType": "string"
                     },
                     "subtotal": {
-                        "bsonType": "string"
+                        "bsonType": [
+                            "string",
+                            "double",
+                            "null"
+                        ]
                     },
                     "subtotal_formatted": {
                         "bsonType": "string"
