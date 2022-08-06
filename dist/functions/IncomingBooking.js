@@ -16,6 +16,8 @@ exports = async function (payload) {
         name: booking.listing.name,
         lat: booking.listing.lat,
         lng: booking.listing.lng,
+        photo: booking.listing.picture_url,
+        address: booking.listing.address,
         pms: Math.trunc(booking.listing.property_id).toString(),
         bookings: booking,
       };
