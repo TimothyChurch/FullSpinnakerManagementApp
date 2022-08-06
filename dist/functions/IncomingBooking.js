@@ -16,7 +16,7 @@ exports = async function (payload) {
         name: booking.listing.name,
         lat: booking.listing.lat,
         lng: booking.listing.lng,
-        pms: Math.trunc(booking.listing.property_id.$numberDouble).toString(),
+        pms: Math.trunc(booking.listing.property_id).toString(),
         bookings: booking,
       };
       await propertyCollection.insertOne(propertyToWrite);
