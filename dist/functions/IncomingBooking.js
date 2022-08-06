@@ -3,18 +3,23 @@ exports = async function (payload) {
     const guest = booking.guest;
     
     const mongodb = context.services.get("mongodb-atlas");
-    const bookingsCollection = mongodb.db("Management").collection("Bookings");
-    const guestsCollection = mongodb.db("Management").collection("Guests");
+    const propertyCollection = mongodb.db("Management").collection("Properties");
     
-    await bookingsCollection.updateOne(
-      { "code": booking.code },
-      { "$set": booking },
-      { "upsert": true },
-    );
-    await guestsCollection.updateOne(
-      { "id": guest.id },
-      { "$set": guest },
-      { "upsert": true }
-    );
+    const property = await propertyCollection.findOne({
+      query: { "pms": booking.listing.property_id.toString()},
+      projection: { _id: 1, bookings: 1 }
+    });
+    
+    if (property.bookings.some((b, index) => b.listing.property_id == booking.listing.property_id.toString())) {
+      property.bookings[index] = booking;
+    } else {
+      property.bookings.push(booking);
+    }
+    
+    await propertyCollection.updateOne({
+      filter: {_id: property._id},
+      update: {bookings: property.bookings}
+    });
+    
   return;
 };
