@@ -213,12 +213,10 @@
             "bsonType": "string"
         },
         "lat": {
-            "bsonType": "object",
-            "properties": {}
+            "bsonType": "string"
         },
         "lng": {
-            "bsonType": "object",
-            "properties": {}
+            "bsonType": "string"
         },
         "name": {
             "bsonType": "string"
