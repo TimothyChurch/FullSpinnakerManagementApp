@@ -157,10 +157,7 @@
                         "bsonType": "string"
                     },
                     "subtotal": {
-                        "bsonType": [
-                            "string",
-                            "number"
-                        ]
+                        "bsonType": "string"
                     },
                     "subtotal_formatted": {
                         "bsonType": "string"
