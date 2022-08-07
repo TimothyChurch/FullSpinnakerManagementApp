@@ -32,6 +32,6 @@ exports = async function (payload) {
       return;
     } 
     property.bookings.push(insertedBooking._id);
-    await propertyCollection.updateOne({pms: idString}, {$set: {bookings: "test"}}, {upsert: true});
+    await propertyCollection.updateOne({pms: idString}, {$set: {bookings: property.bookings}}, {upsert: true});
   
 };
