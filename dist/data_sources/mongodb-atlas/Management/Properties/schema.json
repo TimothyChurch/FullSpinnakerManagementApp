@@ -14,6 +14,9 @@
                     "adults": {
                         "bsonType": "double"
                     },
+                    "base_price": {
+                        "bsonType": "double"
+                    },
                     "base_price_formatted": {
                         "bsonType": "string"
                     },
@@ -40,6 +43,9 @@
                     },
                     "end_date": {
                         "bsonType": "date"
+                    },
+                    "extras_price": {
+                        "bsonType": "double"
                     },
                     "extras_price_formatted": {
                         "bsonType": "string"
@@ -71,13 +77,18 @@
                             "picture_url": {
                                 "bsonType": "string"
                             }
-                        },
-                        "title": "guests"
+                        }
+                    },
+                    "guest_fee": {
+                        "bsonType": "double"
                     },
                     "guest_fee_formatted": {
                         "bsonType": "string"
                     },
                     "guests": {
+                        "bsonType": "double"
+                    },
+                    "host_service_fee": {
                         "bsonType": "double"
                     },
                     "host_service_fee_formatted": {
@@ -118,10 +129,19 @@
                     "nights": {
                         "bsonType": "double"
                     },
+                    "payout_price": {
+                        "bsonType": "double"
+                    },
                     "payout_price_formatted": {
                         "bsonType": "string"
                     },
+                    "per_night_price": {
+                        "bsonType": "double"
+                    },
                     "per_night_price_formatted": {
+                        "bsonType": "string"
+                    },
+                    "security_price": {
                         "bsonType": "string"
                     },
                     "security_price_formatted": {
@@ -136,11 +156,20 @@
                     "status": {
                         "bsonType": "string"
                     },
+                    "subtotal": {
+                        "bsonType": "string"
+                    },
                     "subtotal_formatted": {
+                        "bsonType": "string"
+                    },
+                    "tax_amount": {
                         "bsonType": "string"
                     },
                     "tax_amount_formatted": {
                         "bsonType": "string"
+                    },
+                    "total_price": {
+                        "bsonType": "double"
                     },
                     "total_price_formatted": {
                         "bsonType": "string"
@@ -152,8 +181,7 @@
                         "bsonType": "string"
                     }
                 }
-            },
-            "title": "bookings"
+            }
         },
         "city": {
             "bsonType": "string"
@@ -182,47 +210,10 @@
                         }
                     }
                 }
-            },
-            "title": "details"
+            }
         },
         "hot": {
             "bsonType": "string"
-        },
-        "issues": {
-            "bsonType": "array",
-            "items": {
-                "bsonType": "object",
-                "properties": {
-                    "_id": {
-                        "bsonType": "objectId"
-                    },
-                    "created": {
-                        "bsonType": "timestamp"
-                    },
-                    "details": {
-                        "bsonType": "string"
-                    },
-                    "guest": {
-                        "bsonType": "objectId"
-                    },
-                    "status": {
-                        "bsonType": "string"
-                    },
-                    "techNotes": {
-                        "bsonType": "string"
-                    },
-                    "technician": {
-                        "bsonType": "objectId"
-                    },
-                    "title": {
-                        "bsonType": "string"
-                    },
-                    "type": {
-                        "bsonType": "string"
-                    }
-                }
-            },
-            "title": "issues"
         },
         "lat": {
             "bsonType": "string"
@@ -246,9 +237,6 @@
             "bsonType": "string"
         },
         "state": {
-            "bsonType": "string"
-        },
-        "status": {
             "bsonType": "string"
         },
         "street": {
