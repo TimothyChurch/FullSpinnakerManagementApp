@@ -1,6 +1,5 @@
 exports = async function (payload) {
     const booking = JSON.parse(payload.body.text());
-    
     // Pharsing key data points
     booking.start_date = new Date(booking.start_date);
     booking.end_date = new Date(booking.end_date);
