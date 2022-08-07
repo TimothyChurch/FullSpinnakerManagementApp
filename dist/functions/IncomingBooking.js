@@ -12,7 +12,9 @@ exports = async function (payload) {
     
     
     // Does property/booking exist? Update/Create it
-    const inserted = await bookingCollection.updateOne({code: booking.code}, {$set: booking}, {upsert: true});
+    await bookingCollection.updateOne({code: booking.code}, {$set: booking}, {upsert: true});
+    const insertedBooking = await bookingCollection.findOne({code: booking.code})
+    
     
     const property = await propertyCollection.findOne(
       { pms: idString }
@@ -26,7 +28,7 @@ exports = async function (payload) {
         photo: booking.listing.picture_url,
         address: booking.listing.address,
         pms: Math.trunc(booking.listing.property_id).toString(),
-        bookings: [inserted.upsertedId],
+        bookings: [insertedBooking._id],
       };
       await propertyCollection.insertOne(propertyToWrite);
       return;
