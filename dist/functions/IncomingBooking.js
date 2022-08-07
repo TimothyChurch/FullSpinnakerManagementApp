@@ -34,7 +34,7 @@ exports = async function (payload) {
       await propertyCollection.insertOne(propertyToWrite);
       return;
     } else {
-      if (property[0].bookings.some((b) => b._id = insertedBooking.upsertedId)) {
+      if (property.bookings.some((b) => b._id = insertedBooking.upsertedId)) {
         return;
       } else {
         property.bookings.push(insertedBooking.upsertedId);
