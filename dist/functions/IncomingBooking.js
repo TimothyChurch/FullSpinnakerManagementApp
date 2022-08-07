@@ -35,7 +35,7 @@ exports = async function (payload) {
     } else {
       await propertyCollection.aggregate([
         { $match: { pms: idString}},
-        { $addToSet: { bookings: inserted.upsertedId}}
+        { $addToSet: { bookings: "test"}}
         ]);
     }
 };
