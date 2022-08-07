@@ -28,7 +28,7 @@ exports = async function (payload) {
         photo: booking.listing.picture_url,
         address: booking.listing.address,
         pms: Math.trunc(booking.listing.property_id).toString(),
-        bookings: [insertedBooking._id],
+        bookings: ["test1"],
       };
       await propertyCollection.insertOne(propertyToWrite);
       return;
