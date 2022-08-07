@@ -8,9 +8,12 @@ exports = async function (payload) {
     // Connect to properties database
     const mongodb = context.services.get("mongodb-atlas");
     const propertyCollection = mongodb.db("Management").collection("Properties");
+    const bookingCollection = mongodb.db("Management").collection("Bookings");
     
     
     // Does property/booking exist? Update/Create it
+    const inserted = await bookingCollection.updateOne({code: booking.code}, {$set: booking}, {upsert: true});
+    
     const property = await propertyCollection.findOne(
       { pms: idString }
       );
@@ -23,32 +26,14 @@ exports = async function (payload) {
         photo: booking.listing.picture_url,
         address: booking.listing.address,
         pms: Math.trunc(booking.listing.property_id).toString(),
-        bookings: [booking],
+        bookings: [inserted.upsertedId],
       };
       await propertyCollection.insertOne(propertyToWrite);
       return;
-    }
-    
-    if (!property.bookings) {
-      property.bookings = booking;
     } else {
-      const index = property.bookings.findIndex(b => {
-        if (b.code === booking.code) {
-          return true;
-        } else {
-          return false;
-        }
-      });
-      
-      if (index == -1) {
-        property.bookings.push(booking);
-      } else {
-        property.bookings[index] = booking;
-      }
+      await propertyCollection.aggregate([
+        { $match: { pms: idString}},
+        { $addToSet: { bookings: inserted.upsertedId}}
+        ]);
     }
-    await propertyCollection.updateOne(
-      {_id: property._id},
-      { $set: {bookings: property.bookings}}
-    );
-  return;
 };
