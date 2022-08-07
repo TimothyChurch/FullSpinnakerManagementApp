@@ -34,7 +34,7 @@ exports = async function (payload) {
       if (property.bookings.some((b) => b._id = insertedBooking._id)) {
         return;
       } else {
-        property.bookings.push(insertedBooking._id);
+        property.new = insertedBooking._id;
         await propertyCollection.updateOne({pms: idString}, {$set: property});
       }
     }
