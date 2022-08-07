@@ -39,7 +39,7 @@
                         "bsonType": "string"
                     },
                     "end_date": {
-                        "bsonType": "string"
+                        "bsonType": "date"
                     },
                     "extras_price_formatted": {
                         "bsonType": "string"
@@ -131,7 +131,7 @@
                         "bsonType": "double"
                     },
                     "start_date": {
-                        "bsonType": "string"
+                        "bsonType": "date"
                     },
                     "status": {
                         "bsonType": "string"
