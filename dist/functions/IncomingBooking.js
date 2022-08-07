@@ -10,16 +10,13 @@ exports = async function (payload) {
     const propertyCollection = mongodb.db("Management").collection("Properties");
     const bookingCollection = mongodb.db("Management").collection("Bookings");
     
-    
     // Does property/booking exist? Update/Create it
     await bookingCollection.updateOne({code: booking.code}, {$set: booking}, {upsert: true});
-    const insertedBooking = await bookingCollection.findOne({code: booking.code})
-    
+    const insertedBooking = await bookingCollection.findOne({code: booking.code});
     
     const property = await propertyCollection.findOne(
       { pms: idString }
       );
-    
     
     if (!property) {
       const propertyToWrite = {
