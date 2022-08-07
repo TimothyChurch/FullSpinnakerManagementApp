@@ -29,7 +29,7 @@ exports = async function (payload) {
         photo: booking.listing.picture_url,
         address: booking.listing.address,
         pms: Math.trunc(booking.listing.property_id).toString(),
-        bookings: [insertedBooking.upsertedId],
+        bookings: [insertedBooking._id],
       };
       await propertyCollection.insertOne(propertyToWrite);
       return;
