@@ -1,12 +1,17 @@
 exports = async function (payload) {
     const booking = JSON.parse(payload.body.text());
-    // const booking = payload;
     
+    // Pharsing key data points
+    booking.start_date = new Date(booking.start_date);
+    booking.end_date = new Date(booking.end_date);
+    const idString = Math.trunc(booking.listing.property_id).toString();
+    
+    // Connect to properties database
     const mongodb = context.services.get("mongodb-atlas");
     const propertyCollection = mongodb.db("Management").collection("Properties");
     
-    const idString = Math.trunc(booking.listing.property_id).toString();
-
+    
+    // Does property/booking exist? Update/Create it
     const property = await propertyCollection.findOne(
       { pms: idString }
       );
