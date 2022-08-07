@@ -20,6 +20,7 @@ exports = async function (payload) {
       { pms: idString }
       );
     
+    
     if (!property) {
       const propertyToWrite = {
         name: booking.listing.name,
@@ -33,9 +34,9 @@ exports = async function (payload) {
       await propertyCollection.insertOne(propertyToWrite);
       return;
     } else {
-      await propertyCollection.aggregate([
-        { $match: { pms: idString}},
-        { $addToSet: { bookings: "test"}}
-        ]);
+      if (!property.bookings.some((b) => b._id = insertedBooking.upsertedId)) {
+        property.bookings.push(insertedBooking.upsertedId);
+        await propertyCollection.updateOne({pms: idString}, {$set: property});
+      }
     }
 };
