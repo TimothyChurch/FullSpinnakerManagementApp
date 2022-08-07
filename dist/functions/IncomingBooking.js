@@ -34,9 +34,9 @@ exports = async function (payload) {
       await propertyCollection.insertOne(propertyToWrite);
       return;
     } else {
-      if (!property.bookings.some((b) => b._id = insertedBooking.upsertedId)) {
-        property.bookings.push(insertedBooking.upsertedId);
-        await propertyCollection.updateOne({pms: idString}, {$set: property});
-      }
+      // if (!property.bookings.some((b) => b._id = insertedBooking.upsertedId)) {
+      //   property.bookings.push(insertedBooking.upsertedId);
+      //   await propertyCollection.updateOne({pms: idString}, {$set: property});
+      // }
     }
 };
