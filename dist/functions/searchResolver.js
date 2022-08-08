@@ -1,4 +1,5 @@
 exports = async (input) => {
+  const query = input;
   
   const mongodb = context.services.get("mongodb-atlas");
   const propertyCollection = mongodb.db("Management").collection("Properties");
@@ -9,8 +10,8 @@ exports = async (input) => {
       $search: {
         compound: {
           should: [
-            { autocomplete: { input, path: "name" } },
-            { autocomplete: { input, path: "address" } },
+            { autocomplete: { query, path: "name" } },
+            { autocomplete: { query, path: "address" } },
           ],
         },
       },
@@ -26,7 +27,7 @@ exports = async (input) => {
   let people = await peopleCollection.aggregate([
       {
         $search: {
-          autocomplete: { input, path: "name" },
+          autocomplete: { query, path: "name" },
         },
       },
       {
@@ -37,5 +38,5 @@ exports = async (input) => {
       }
     ]);
     
-  return {properties, people};
+  return properties
 };

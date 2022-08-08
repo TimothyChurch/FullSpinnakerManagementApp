@@ -1,5 +1,11 @@
 [
     {
+        "name": "Hospitable",
+        "private": false,
+        "run_as_system": true,
+        "disable_arg_logs": true
+    },
+    {
         "name": "HospitableTokenExchange",
         "private": false
     },
@@ -11,11 +17,5 @@
     {
         "name": "searchResolver",
         "private": false
-    },
-    {
-        "name": "Hospitable",
-        "private": false,
-        "run_as_system": true,
-        "disable_arg_logs": true
     }
 ]
