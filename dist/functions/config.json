@@ -13,5 +13,9 @@
         "name": "IncomingBooking",
         "private": false,
         "run_as_system": true
+    },
+    {
+        "name": "searchResolver",
+        "private": false
     }
 ]
