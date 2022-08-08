@@ -5,23 +5,37 @@ exports = async (query) => {
   const peopleCollection = mongodb.db("Management").collection("People");
   
   let properties = await propertyCollection.aggregate([
+    {
+      $search: {
+        compound: {
+          should: [
+            { autocomplete: { query, path: "name" } },
+            { autocomplete: { query, path: "address" } },
+          ],
+        },
+      },
+    },
+    {
+      $limit: 5,
+    },
+    {
+      $project: { _id: 1, name: 1, photo: 1 },
+    },
+  ]);
+  
+  let people = await peopleCollection.aggregate([
       {
         $search: {
-          compound: {
-            should: [
-              { autocomplete: { query, path: "name" } },
-              { autocomplete: { query, path: "address" } },
-            ],
-          },
+          autocomplete: { query, path: "name" },
         },
       },
       {
         $limit: 5,
       },
       {
-        $project: { _id: 1, name: 1, photo: 1 },
-      },
+        $project: { _id: 1, name: 1 },
+      }
     ]);
     
-  return properties;
+  return {properties, people};
 };
