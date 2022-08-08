@@ -21,7 +21,7 @@ exports = async (input) => {
     {
       $project: { _id: 1, name: 1, photo: 1 },
     },
-  ]);
+  ]).toArray();
   
   let people = await peopleCollection.aggregate([
       {
@@ -35,7 +35,7 @@ exports = async (input) => {
       {
         $project: { _id: 1, name: 1 },
       }
-    ]);
+    ]).toArray();
     
-  return properties;
+  return {properties, people};
 };
