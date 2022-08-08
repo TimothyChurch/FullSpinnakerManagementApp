@@ -1,14 +1,5 @@
 [
     {
-        "name": "IncomingBooking",
-        "private": false,
-        "run_as_system": true
-    },
-    {
-        "name": "searchResolver",
-        "private": false
-    },
-    {
         "name": "Hospitable",
         "private": false,
         "run_as_system": true,
@@ -16,6 +7,15 @@
     },
     {
         "name": "HospitableTokenExchange",
+        "private": false
+    },
+    {
+        "name": "IncomingBooking",
+        "private": false,
+        "run_as_system": true
+    },
+    {
+        "name": "searchResolver",
         "private": false
     }
 ]

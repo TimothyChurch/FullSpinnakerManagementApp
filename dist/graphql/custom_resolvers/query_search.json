@@ -4,5 +4,42 @@
     "input_type": "string",
     "input_type_format": "scalar",
     "on_type": "Query",
-    "payload_type_format": ""
+    "payload_type": {
+        "properties": {
+            "people": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "object",
+                    "properties": {
+                        "_id": {
+                            "bsonType": "objectId"
+                        },
+                        "name": {
+                            "bsonType": "string"
+                        }
+                    }
+                }
+            },
+            "properties": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "object",
+                    "properties": {
+                        "_id": {
+                            "bsonType": "objectId"
+                        },
+                        "name": {
+                            "bsonType": "string"
+                        },
+                        "photo": {
+                            "bsonType": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "title": "search",
+        "type": "object"
+    },
+    "payload_type_format": "custom"
 }
