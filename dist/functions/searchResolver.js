@@ -1,4 +1,4 @@
-exports = async (input) => {
+exports = async (query) => {
   
   const mongodb = context.services.get("mongodb-atlas");
   const propertyCollection = mongodb.db("Management").collection("Properties");
