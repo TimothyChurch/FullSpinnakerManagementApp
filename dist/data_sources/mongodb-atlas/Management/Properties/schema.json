@@ -24,21 +24,7 @@
         "details": {
             "bsonType": "array",
             "items": {
-                "bsonType": "object",
-                "properties": {
-                    "_id": {
-                        "bsonType": "objectId"
-                    },
-                    "info": {
-                        "bsonType": "string"
-                    },
-                    "tags": {
-                        "bsonType": "array",
-                        "items": {
-                            "bsonType": "string"
-                        }
-                    }
-                }
+                "bsonType": "objectId"
             }
         },
         "hot": {
@@ -47,36 +33,7 @@
         "issues": {
             "bsonType": "array",
             "items": {
-                "bsonType": "object",
-                "properties": {
-                    "_id": {
-                        "bsonType": "objectId"
-                    },
-                    "created": {
-                        "bsonType": "date"
-                    },
-                    "details": {
-                        "bsonType": "string"
-                    },
-                    "guest": {
-                        "bsonType": "objectId"
-                    },
-                    "status": {
-                        "bsonType": "string"
-                    },
-                    "techNotes": {
-                        "bsonType": "string"
-                    },
-                    "technician": {
-                        "bsonType": "objectId"
-                    },
-                    "title": {
-                        "bsonType": "string"
-                    },
-                    "type": {
-                        "bsonType": "string"
-                    }
-                }
+                "bsonType": "objectId"
             }
         },
         "lat": {

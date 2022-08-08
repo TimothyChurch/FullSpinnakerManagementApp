@@ -1,0 +1,32 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "booking": {
+            "bsonType": "objectId"
+        },
+        "created": {
+            "bsonType": "string"
+        },
+        "details": {
+            "bsonType": "string"
+        },
+        "status": {
+            "bsonType": "string"
+        },
+        "techNotes": {
+            "bsonType": "string"
+        },
+        "technician": {
+            "bsonType": "objectId"
+        },
+        "title": {
+            "bsonType": "string"
+        },
+        "type": {
+            "bsonType": "string"
+        }
+    },
+    "title": "Issue"
+}
