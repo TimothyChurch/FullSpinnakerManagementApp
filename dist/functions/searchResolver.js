@@ -37,5 +37,5 @@ exports = async (input) => {
       }
     ]);
     
-  return {properties, people};
+  return (properties, people);
 };
