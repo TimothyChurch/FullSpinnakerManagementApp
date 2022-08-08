@@ -8,5 +8,5 @@ exports = async (input) => {
     {$addToSet: {issues: input.issue}}
     ]);
   
-  return { "hello": input.name };
+  return;
 };
